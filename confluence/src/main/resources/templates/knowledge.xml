@@ -1,0 +1,50 @@
+<!--suppress XmlUnboundNsPrefix -->
+<div class="contentLayout"
+     data-atlassian-layout="{'name':'pagelayout-two-left','columns':['col1','col2'],'header':true,'footer':true}">
+    <div class="header">
+        <div class="innerCell">
+            <div class="expertfinder knowledge description">
+                <ac:rich-text-body>
+                    <ac:placeholder>
+                        <at:i18n at:key="expertfinder.plugin.templates.knowledge.description.placeholder" />
+                    </ac:placeholder>
+                </ac:rich-text-body>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="columnLayout twoColumns">
+        <div class="cell col1">
+            <div class="innerCell">
+                <h2><at:i18n at:key="expertfinder.plugin.templates.knowledge.narrowerknowledges" /></h2>
+                <div class="expertfinder knowledge narrower">
+                    <ac:structured-macro ac:name="pagetree">
+                        <ac:parameter ac:name="root">@self</ac:parameter>
+                    </ac:structured-macro>
+                </div>
+            </div>
+        </div>
+        <div class="cell col2">
+            <div class="innerCell">
+                <h2>
+                    <at:i18n at:key="expertfinder.plugin.templates.knowledge.experts" />
+                    <small>
+                        (<at:i18n at:key="expertfinder.plugin.templates.knowledge.experts.tip" />)
+                    </small>
+                </h2>
+                <ul class="expertfinder knowledge experts">
+                    <li>
+                        <ac:placeholder ac:type="mention">
+                            <at:i18n at:key="expertfinder.plugin.templates.knowledge.experts.placeholder" />
+                        </ac:placeholder>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="innerCell">
+            <hr />
+        </div>
+    </div>
+</div>

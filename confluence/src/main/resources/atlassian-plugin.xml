@@ -1,0 +1,122 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/expertFinderIcon.png</param>
+        <param name="plugin-logo">images/expertFinderLogo.png</param>
+    </plugin-info>
+
+    <resource type="i18n" name="i18n" location="expertfinder-confluence-plugin"/>
+
+    <web-resource key="expertfinder-confluence-plugin-resources" name="expertfinder-confluence-plugin-web-resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <dependency>com.atlassian.auiplugin:aui-select2</dependency>
+        <dependency>com.atlassian.confluence.plugins.confluence-create-content-plugin:resources</dependency>
+
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>expertfinder</context>
+        <context>atl.general</context>
+        <context>atl.admin</context>
+    </web-resource>
+
+    <template-context-item key="i18nResolveContextItem" component-ref="i18nResolver"
+                           context-key="i18n" global="true" name="I18nResolver Context Item"/>
+
+    <!-- project -->
+    <web-item key="expertfinder-blueprint-project-item"
+              i18n-name-key="expertfinder.plugin.templates.project.title"
+              section="system.create.dialog/content">
+        <description key="expertfinder.plugin.templates.project.description" />
+        <resource name="icon" type="download" location="/images/project.png"/>
+        <param name="blueprintKey" value="expertfinder-blueprint-project" />
+    </web-item>
+    <blueprint key="expertfinder-blueprint-project"
+               i18n-name-key="expertfinder.plugin.meta.project.blueprint"
+               content-template-key="expertfinder-project-template"
+               index-key="expertfinder-project" />
+    <content-template key="expertfinder-project-template"
+                      i18n-name-key="expertfinder.plugin.meta.project.template"
+                      template-title-key="expertfinder.plugin.templates.project.title">
+        <resource name="template" type="download" location="/templates/project.xml" />
+    </content-template>
+
+    <!-- knowledge area -->
+    <web-item key="expertfinder-blueprint-knowledge-item"
+              i18n-name-key="expertfinder.plugin.templates.knowledge.title"
+              section="system.create.dialog/content">
+        <description key="expertfinder.plugin.templates.knowledge.description" />
+        <resource name="icon" type="download" location="/images/knowledge.png"/>
+        <param name="blueprintKey" value="expertfinder-blueprint-knowledge" />
+    </web-item>
+    <blueprint key="expertfinder-blueprint-knowledge"
+               i18n-name-key="expertfinder.plugin.meta.knowledge.blueprint"
+               content-template-key="expertfinder-knowledge-template"
+               index-key="expertfinder-knowledge" />
+    <content-template key="expertfinder-knowledge-template"
+                      i18n-name-key="expertfinder.plugin.meta.knowledge.template"
+                      template-title-key="expertfinder.plugin.templates.knowledge.title">
+        <resource name="template" type="download" location="/templates/knowledge.xml" />
+    </content-template>
+
+    <!-- application -->
+    <web-item key="expertfinder-blueprint-application-item"
+              i18n-name-key="expertfinder.plugin.templates.application.title"
+              section="system.create.dialog/content">
+        <description key="expertfinder.plugin.templates.application.description" />
+        <resource name="icon" type="download" location="/images/application.png"/>
+        <param name="blueprintKey" value="expertfinder-blueprint-application" />
+    </web-item>
+    <blueprint key="expertfinder-blueprint-application"
+               i18n-name-key="expertfinder.plugin.meta.application.blueprint"
+               content-template-key="expertfinder-application-template"
+               index-key="expertfinder-application" />
+    <content-template key="expertfinder-application-template"
+                      i18n-name-key="expertfinder.plugin.meta.project.template"
+                      template-title-key="expertfinder.plugin.templates.application.title">
+        <resource name="template" type="download" location="/templates/application.xml" />
+    </content-template>
+
+    <!-- technology -->
+    <web-item key="expertfinder-blueprint-technology-item"
+              i18n-name-key="expertfinder.plugin.templates.technology.title"
+              section="system.create.dialog/content">
+        <description key="expertfinder.plugin.templates.technology.description" />
+        <resource name="icon" type="download" location="/images/technology.png"/>
+        <param name="blueprintKey" value="expertfinder-blueprint-technology" />
+    </web-item>
+    <blueprint key="expertfinder-blueprint-technology"
+               i18n-name-key="expertfinder.plugin.meta.technology.blueprint"
+               content-template-key="expertfinder-technology-template"
+               index-key="expertfinder-technology" />
+    <content-template key="expertfinder-technology-template"
+                      i18n-name-key="expertfinder.plugin.meta.project.template"
+                      template-title-key="expertfinder.plugin.templates.technology.title">
+        <resource name="template" type="download" location="/templates/technology.xml" />
+    </content-template>
+
+    <!-- qualification -->
+    <web-item key="expertfinder-blueprint-qualification-item"
+              i18n-name-key="expertfinder.plugin.templates.qualification.title"
+              section="system.create.dialog/content">
+        <description key="expertfinder.plugin.templates.qualification.description" />
+        <resource name="icon" type="download" location="/images/qualification.png"/>
+        <param name="blueprintKey" value="expertfinder-blueprint-qualification" />
+    </web-item>
+    <blueprint key="expertfinder-blueprint-qualification"
+               i18n-name-key="expertfinder.plugin.meta.qualification.blueprint"
+               content-template-key="expertfinder-qualification-template"
+               index-key="expertfinder-qualification" />
+    <content-template key="expertfinder-qualification-template"
+                      i18n-name-key="expertfinder.plugin.meta.qualification.template"
+                      template-title-key="expertfinder.plugin.templates.qualification.title">
+        <resource name="template" type="download" location="/templates/qualification.xml" />
+    </content-template>
+
+</atlassian-plugin>

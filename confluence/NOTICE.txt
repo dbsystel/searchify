@@ -1,0 +1,8 @@
+DB ExpertFinder Confluence Plugin
+
+Copyright 2012-2016 The Apache Software Foundation
+
+This product also includes some third-party components:
+
+ * All icons are freely provided by IconFinder <https://www.iconfinder.com/>
+

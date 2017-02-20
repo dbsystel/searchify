@@ -1,0 +1,50 @@
+<!--suppress XmlUnboundNsPrefix -->
+<div class="contentLayout"
+     data-atlassian-layout="{'name':'pagelayout-two-left','columns':['structure','experts'],'header':true,'footer':true}">
+    <div class="header">
+        <div class="innerCell">
+            <div class="expertfinder qualification description">
+                <ac:rich-text-body>
+                    <ac:placeholder>
+                        <at:i18n at:key="expertfinder.plugin.templates.qualification.description.placeholder" />
+                    </ac:placeholder>
+                </ac:rich-text-body>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="columnLayout twoColumns">
+        <div class="cell structure">
+            <div class="innerCell">
+                <h2><at:i18n at:key="expertfinder.plugin.templates.qualification.narrowerqualifications" /></h2>
+                <div class="expertfinder qualification narrower">
+                    <ac:structured-macro ac:name="pagetree">
+                        <ac:parameter ac:name="root">@self</ac:parameter>
+                    </ac:structured-macro>
+                </div>
+            </div>
+        </div>
+        <div class="cell experts">
+            <div class="innerCell">
+                <h2>
+                    <at:i18n at:key="expertfinder.plugin.templates.qualification.experts" />
+                    <small>
+                        (<at:i18n at:key="expertfinder.plugin.templates.qualification.experts.tip" />)
+                    </small>
+                </h2>
+                <ul class="expertfinder qualification experts">
+                    <li>
+                        <ac:placeholder ac:type="mention">
+                            <at:i18n at:key="expertfinder.plugin.templates.qualification.experts.placeholder" />
+                        </ac:placeholder>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="innerCell">
+            <hr />
+        </div>
+    </div>
+</div>
