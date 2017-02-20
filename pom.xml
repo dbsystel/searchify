@@ -26,6 +26,7 @@
         <spring.boot.version>1.5.1.RELEASE</spring.boot.version>
         <tinkerpop.version>3.2.3</tinkerpop.version>
         <jsop.version>1.8.2</jsop.version>
+        <guava.version>21.0</guava.version>
 
         <confluence.version>5.10.2</confluence.version>
         <confluence.data.version>5.10.2</confluence.data.version>

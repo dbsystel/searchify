@@ -1,10 +1,14 @@
 package de.db.searchify.service;
 
 import de.db.searchify.api.Processor;
+import org.apache.tinkerpop.gremlin.structure.Graph;
+import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,22 +23,46 @@ import java.util.Map;
 @Service
 public class HtmlToMetadataProcessor implements Processor {
 
-    public static final String DESCRIPTION = "description";
+    @Value("${searchify.processor.html.description:description}")
+    private String DESCRIPTION;
 
-    public static final String KNOWLEDGE_AREAS = "knowledges";
+    @Value("${searchify.processor.html.knowledges:knowledges}")
+    private String KNOWLEDGE_AREAS;
 
-    public static final String EXPERTS = "experts";
+    @Value("${searchify.processor.html.experts:experts}")
+    private String EXPERTS;
 
-    public static final String APPLICATIONS = "applications";
+    @Value("${searchify.processor.html.applications:applications}")
+    private String APPLICATIONS;
 
-    public static final String TECHNOLOGIES = "technologies";
+    @Value("${searchify.processor.html.technologies:technologies}")
+    private String TECHNOLOGIES;
 
-    public static final String QUALIFICATIONS = "qualifications";
+    @Value("${searchify.processor.html.qualifications:qualifications}")
+    private String QUALIFICATIONS;
 
-    private static ExpertiseScrappingParser parser = new ExpertiseScrappingParser("http://expertfinder.db.redlink.io/confluence/");
+    @Value("${searchify.graph.vertex.body:dbsearch_content_t}")
+    private String BODY = "body";
+
+    @Autowired
+    Graph graph;
+
+    private ExpertiseScrappingParser parser = new ExpertiseScrappingParser();
 
     public void run() {
+        graph.vertices().forEachRemaining(
+                vertex -> {
+                    if(vertex.property(BODY).isPresent()) {
+                        handleVertex(vertex);
+                    }
+                }
+        );
+    }
 
+    private void handleVertex(Vertex vertex) {
+        Map<String,Collection<String>> results = parser.parseBody((String)vertex.property(BODY).value());
+
+        //TODO adapt parser and write results
     }
 
     /**
@@ -42,14 +70,9 @@ public class HtmlToMetadataProcessor implements Processor {
      *
      * @author sergio.fernandez@redlink.co
      */
-    private static class ExpertiseScrappingParser {
+    private class ExpertiseScrappingParser {
 
         public static final String CONFLUENCE_CREATELINK_CLASS = "createlink";
-        private final String base;
-
-        public ExpertiseScrappingParser(String base) {
-            this.base = base;
-        }
 
         /**
          * Parse confluence body view
@@ -59,7 +82,7 @@ public class HtmlToMetadataProcessor implements Processor {
         public Map<String, Collection<String>> parseBody(String body) {
             final Map<String, Collection<String>> parsed = new HashMap();
 
-            final Document doc = Jsoup.parse(body, this.base);
+            final Document doc = Jsoup.parse(body);
 
             //description scrapping
             final Elements descriptionElement = doc.select("div.expertfinder.description");
