@@ -1,0 +1,122 @@
+<!--suppress XmlUnboundNsPrefix -->
+<div class="contentLayout"
+     data-atlassian-layout="{'name':'pagelayout-two-left','columns':['col1','col2'],'header':true,'footer':true}">
+    <div class="header">
+        <div class="innerCell">
+            <div class="expertfinder project description">
+                <ac:rich-text-body>
+                    <ac:placeholder>
+                        <at:i18n at:key="expertfinder.plugin.templates.project.description.placeholder" />
+                    </ac:placeholder>
+                </ac:rich-text-body>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="columnLayout twoColumns">
+        <div class="cell col1">
+            <div class="innerCell">
+                <h2><at:i18n at:key="expertfinder.plugin.templates.project.narrowerprojects" /></h2>
+                <div class="expertfinder project narrower">
+                    <ac:structured-macro ac:name="pagetree">
+                        <ac:parameter ac:name="root">@self</ac:parameter>
+                    </ac:structured-macro>
+                </div>
+            </div>
+        </div>
+        <div class="cell col2">
+            <div class="innerCell">
+                <h2>
+                    <at:i18n at:key="expertfinder.plugin.templates.project.experts" />
+                    <small>
+                        (<at:i18n at:key="expertfinder.plugin.templates.project.experts.tip" />)
+                    </small>
+                </h2>
+                <ul class="expertfinder project experts">
+                    <li>
+                        <ac:placeholder ac:type="mention">
+                            <at:i18n at:key="expertfinder.plugin.templates.project.experts.placeholder" />
+                        </ac:placeholder>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="columnLayout twoColumns">
+        <div class="cell col1">
+            <div class="innerCell">
+                <h2>
+                    <at:i18n at:key="expertfinder.plugin.templates.project.knowledges" />
+                    <small>
+                        (<at:i18n at:key="expertfinder.plugin.templates.project.knowledges.tip" />)
+                    </small>
+                </h2>
+                <ul class="expertfinder project knowledges">
+                    <li>
+                        <ac:placeholder>
+                            <at:i18n at:key="expertfinder.plugin.templates.project.knowledges.placeholder" />
+                        </ac:placeholder>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="cell col2">
+            <div class="innerCell">
+                <h2>
+                    <at:i18n at:key="expertfinder.plugin.templates.project.applications" />
+                    <small>
+                        (<at:i18n at:key="expertfinder.plugin.templates.project.applications.tip" />)
+                    </small>
+                </h2>
+                <ul class="expertfinder project applications">
+                    <li>
+                        <ac:placeholder>
+                            <at:i18n at:key="expertfinder.plugin.templates.project.applications.placeholder" />
+                        </ac:placeholder>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="columnLayout twoColumns">
+        <div class="cell col1">
+            <div class="innerCell">
+                <h2>
+                    <at:i18n at:key="expertfinder.plugin.templates.project.technologies" />
+                    <small>
+                        (<at:i18n at:key="expertfinder.plugin.templates.project.technologies.tip" />)
+                    </small>
+                </h2>
+                <ul class="expertfinder project technologies">
+                    <li>
+                        <ac:placeholder>
+                            <at:i18n at:key="expertfinder.plugin.templates.project.technologies.placeholder" />
+                        </ac:placeholder>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="cell col2">
+            <div class="innerCell">
+                <h2>
+                    <at:i18n at:key="expertfinder.plugin.templates.project.qualifications" />
+                    <small>
+                        (<at:i18n at:key="expertfinder.plugin.templates.project.qualifications.tip" />)
+                    </small>
+                </h2>
+                <ul class="expertfinder project qualifications">
+                    <li>
+                        <ac:placeholder>
+                            <at:i18n at:key="expertfinder.plugin.templates.project.qualifications.placeholder" />
+                        </ac:placeholder>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="innerCell">
+            <hr />
+        </div>
+    </div>
+</div>
