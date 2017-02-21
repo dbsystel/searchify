@@ -1,7 +1,9 @@
 package de.db.searchify.service;
 
+import com.google.common.collect.ImmutableMap;
 import de.db.searchify.api.Processor;
 import org.apache.tinkerpop.gremlin.structure.Graph;
+import org.apache.tinkerpop.gremlin.structure.T;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,27 +45,51 @@ public class HtmlToMetadataProcessor implements Processor {
     private String QUALIFICATIONS;
 
     @Value("${searchify.graph.vertex.body:dbsearch_content_t}")
-    private String BODY = "body";
+    private String BODY;
+
+    @Value("${searchify.graph.vertex.body:dbsearch_abstract_t}")
+    private String ABSTRACT;
+
+    @Value("${searchify.graph.vertex.body:dbsearch_link_s}")
+    private String LINK;
+
+    @Value("${searchify.graph.vertex.body:dbsearch_title_s}")
+    private String TITLE;
+
+    @Value("${searchify.graph.vertex.body:id}")
+    private String ID;
+
+    @Value("${searchify.graph.vertex.body:dbsearch_doctype_s}")
+    private String TYPE;
+
+    @Value("${searchify.processor.html.base_url:https://expertfinder.db.redlink.io/confluence}")
+    private String BASE_URL;
 
     @Autowired
     Graph graph;
 
     private ExpertiseScrappingParser parser = new ExpertiseScrappingParser();
 
+    private Map<String,String> selectors;
+
+    @PostConstruct
+    public void postConstruct() {
+        selectors = ImmutableMap.of(
+                KNOWLEDGE_AREAS,"ul.expertfinder.knowledges li",
+                TECHNOLOGIES, "ul.expertfinder.technologies li",
+                QUALIFICATIONS, "ul.expertfinder.qualifications li",
+                APPLICATIONS, "ul.expertfinder.applications li"
+        );
+    }
+
     public void run() {
         graph.vertices().forEachRemaining(
                 vertex -> {
                     if(vertex.property(BODY).isPresent()) {
-                        handleVertex(vertex);
+                        parser.parseBody(vertex);
                     }
                 }
         );
-    }
-
-    private void handleVertex(Vertex vertex) {
-        Map<String,Collection<String>> results = parser.parseBody((String)vertex.property(BODY).value());
-
-        //TODO adapt parser and write results
     }
 
     /**
@@ -79,80 +106,74 @@ public class HtmlToMetadataProcessor implements Processor {
          *
          * @return map with all parsed (TODO: define proper api)
          */
-        public Map<String, Collection<String>> parseBody(String body) {
-            final Map<String, Collection<String>> parsed = new HashMap();
+        public void parseBody(Vertex vertex) {
 
-            final Document doc = Jsoup.parse(body);
+            String body = (String) vertex.property(BODY).value();
+
+            final Document doc = Jsoup.parse(body,BASE_URL);
 
             //description scrapping
             final Elements descriptionElement = doc.select("div.expertfinder.description");
             final Collection<String> description = new ArrayList<>();
             description.add(descriptionElement.text());
-            parsed.put(DESCRIPTION, description);
+            vertex.property(ABSTRACT, description);
 
-            //TODO: narrower items?
-
-            //projects scrapping
-            final Elements projectElements = doc.select("ul.expertfinder.knowledges li");
-            final Collection<String> projects = new ArrayList<>();
-            for (Element element : projectElements) {
-                final Element project = element.select("a").first();
-                addExistingLink(projects, project);
+            for(Map.Entry<String,String> selector : selectors.entrySet()) {
+                final Elements projectElements = doc.select(selector.getValue());
+                for (Element element : projectElements) {
+                    String link = getLink(element.select("a").first());
+                    if(link != null) {
+                        Vertex linkNode = getLinkNode(link);
+                        vertex.addEdge(selector.getKey(), linkNode);
+                    }
+                }
             }
-            parsed.put(KNOWLEDGE_AREAS, projects);
-
-            //applications scrapping
-            final Elements applicationsElements = doc.select("ul.expertfinder.applications li");
-            final Collection<String> applications = new ArrayList<>();
-            for (Element element : applicationsElements) {
-                final Element app = element.select("a").first();
-                addExistingLink(applications, app);
-            }
-            parsed.put(APPLICATIONS, applications);
-
-            //technologies scrapping
-            final Elements technologiesElements = doc.select("ul.expertfinder.technologies li");
-            final Collection<String> technologies = new ArrayList<>();
-            for (Element element : technologiesElements) {
-                final Element tech = element.select("a").first();
-                addExistingLink(technologies, tech);
-            }
-            parsed.put(TECHNOLOGIES, technologies);
-
-            //qualifications scrapping
-            final Elements qualificationsElements = doc.select("ul.expertfinder.qualifications li");
-            final Collection<String> qualifications = new ArrayList<>();
-            for (Element element : qualificationsElements) {
-                final Element qualification = element.select("a").first();
-                addExistingLink(qualifications, qualification);
-            }
-            parsed.put(QUALIFICATIONS, qualifications);
 
             //experts scrapping
             final Elements expertsElements = doc.select("ul.expertfinder.experts li");
-            final Collection<String> experts = new ArrayList<>();
             for (Element element : expertsElements) {
                 final Element user = element.select("a").first();
                 if (user != null && user.hasAttr("data-username")) {
                     final String username = user.attr("data-username");
-                    experts.add(username);
+                    final String id = user.attr("data-linked-resource-id");
+                    final String href = user.attr("abs:href");
+                    final String name = user.text();
+                    Vertex u_vertex = getUserNode(username,id,href,name);
+                    vertex.addEdge("expert", u_vertex);
                 }
             }
-            parsed.put(EXPERTS, experts);
+        }
 
-            return parsed;
+        private synchronized Vertex getUserNode(String username, String id, String href, String name) {
+            if(graph.vertices("id", id).hasNext()) {
+                return graph.vertices("id", id).next();
+            }
+            else return graph.addVertex(
+                    T.label, username,
+                    "id", id,
+                    "dbsearch_link_s", href,
+                    "dbsearch_title_s", name,
+                    "dbsearch_abstract_t", username,
+                    TYPE, "Person"
+            );
+        }
+
+        private synchronized Vertex getLinkNode(String link) {
+            if(graph.vertices("id", link).hasNext()) {
+                return graph.vertices("id", link).next();
+            }
+            else return graph.addVertex("id", link, T.label, link);
         }
 
         /**
          * Adds only actually existing links (see DBEF-28)
          *
-         * @param collection collection to add the new element
          * @param element    element to check
          */
-        private void addExistingLink(Collection<String> collection, Element element) {
+        private String getLink(Element element) {
             if (element != null && !element.hasClass(CONFLUENCE_CREATELINK_CLASS)) {
-                collection.add(element.attr("abs:href"));
-            }
+                return element.attr("abs:href");
+            } return null;
         }
     }
 

@@ -1,9 +1,10 @@
 package de.db.searchify.configuration;
 
-import org.apache.commons.configuration.BaseConfiguration;
 import org.apache.tinkerpop.gremlin.structure.Graph;
+import org.apache.tinkerpop.gremlin.structure.util.GraphFactory;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,17 +13,15 @@ import org.springframework.context.annotation.Configuration;
  * @since 20.02.17.
  */
 @Configuration
+@EnableConfigurationProperties(GraphProperties.class)
 public class DataBeanConfiguration {
 
-    @Value("searchify.graph.location:/tmp/location")
-    private String location;
+    @Autowired
+    private GraphProperties properties;
 
     @Bean
-    public Graph tikerGraph() {
-        BaseConfiguration configuration = new BaseConfiguration();
-        configuration.setProperty(TinkerGraph.GREMLIN_TINKERGRAPH_GRAPH_LOCATION,location);
-        configuration.setProperty(TinkerGraph.GREMLIN_TINKERGRAPH_GRAPH_FORMAT,"graphml");
-        return TinkerGraph.open(configuration);
+    public Graph gremlinGraph() {
+        return GraphFactory.open(properties.getGraph());
     }
 
 }
