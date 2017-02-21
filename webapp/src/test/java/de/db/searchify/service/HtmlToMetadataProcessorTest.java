@@ -1,7 +1,7 @@
 package de.db.searchify.service;
 
-import com.google.common.collect.Iterators;
 import com.google.common.io.Resources;
+import de.db.searchify.processor.HtmlToMetadataProcessor;
 import junit.framework.TestCase;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.T;
@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;

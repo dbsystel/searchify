@@ -1,10 +1,15 @@
 package de.db.searchify.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Iterators;
 import com.google.common.io.Resources;
+import de.db.searchify.model.Status;
+import de.db.searchify.processor.HtmlToMetadataProcessor;
 import org.apache.tinkerpop.gremlin.structure.Element;
 import org.apache.tinkerpop.gremlin.structure.Graph;
+import org.apache.tinkerpop.gremlin.structure.T;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
+import org.apache.tinkerpop.gremlin.structure.io.IoCore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
@@ -28,19 +35,31 @@ import static org.junit.Assert.assertNotNull;
 @Profile("test")
 public class HtmlToMetadataProcessorIntegrationTest {
 
+    ObjectMapper mapper = new ObjectMapper();
+
     @Autowired
     Graph graph;
 
     @Autowired
-    HtmlToMetadataProcessor metadataProcessor;
+    PipelineService pipelineService;
+
+    @Autowired
+    SerialisationService serialisationService;
 
     @Test
     public void testRealData() throws Exception {
         loadData();
-        metadataProcessor.run();
 
-        assertEquals(7, Iterators.size(graph.vertices()));
-        assertEquals(6,Iterators.size(graph.edges()));
+        pipelineService.run();
+
+        while(pipelineService.status().getState().equals(Status.State.running)) {
+            Thread.sleep(500);
+        }
+
+        assertEquals(42, Iterators.size(graph.vertices()));
+        assertEquals(27,Iterators.size(graph.edges()));
+
+        System.out.println(serialisationService.serialize());
 
         graph.close();
     }
@@ -50,15 +69,18 @@ public class HtmlToMetadataProcessorIntegrationTest {
         graph.edges().forEachRemaining(Element::remove);
         graph.vertices().forEachRemaining(Element::remove);
 
-        Properties properties = new Properties();
-        properties.load(Resources.getResource("vertex.properties").openStream());
+        HashMap<String,HashMap<String,Object>> map = mapper.readValue(Resources.getResource("export3.json"), HashMap.class);
 
-        Vertex vertex = graph.addVertex();
-        for(String name : properties.stringPropertyNames()) {
-            vertex.property(name, properties.getProperty(name));
+        for(String id : map.keySet()) {
+            Map<String,Object> properties = map.get(id);
+            Vertex vertex = graph.addVertex(properties.get("id").toString());
+            for(String key : properties.keySet()) {
+                if(properties.get(key) != null) vertex.property(key, properties.get(key));
+            }
         }
 
-        vertex.property("dbsearch_content_t", Resources.toString(Resources.getResource("confluence.html"), Charset.forName("UTF-8")));
+        //set content for one vertex
+        graph.vertices().next().property("dbsearch_content_t", Resources.toString(Resources.getResource("confluence.html"), Charset.forName("UTF-8")));
     }
 
 }

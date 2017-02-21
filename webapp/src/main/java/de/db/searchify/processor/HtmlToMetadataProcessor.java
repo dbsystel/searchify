@@ -1,4 +1,4 @@
-package de.db.searchify.service;
+package de.db.searchify.processor;
 
 import com.google.common.collect.ImmutableMap;
 import de.db.searchify.api.Processor;
@@ -135,22 +135,21 @@ public class HtmlToMetadataProcessor implements Processor {
                 final Element user = element.select("a").first();
                 if (user != null && user.hasAttr("data-username")) {
                     final String username = user.attr("data-username");
-                    final String id = user.attr("data-linked-resource-id");
                     final String href = user.attr("abs:href");
                     final String name = user.text();
-                    Vertex u_vertex = getUserNode(username,id,href,name);
+                    Vertex u_vertex = getUserNode(username,href,name);
                     vertex.addEdge("expert", u_vertex);
                 }
             }
         }
 
-        private synchronized Vertex getUserNode(String username, String id, String href, String name) {
-            if(graph.vertices("id", id).hasNext()) {
-                return graph.vertices("id", id).next();
+        private synchronized Vertex getUserNode(String username, String href, String name) {
+            if(graph.traversal().V().has("id", username).hasNext()) {
+                return graph.traversal().V().has("id",username).next();
             }
             else return graph.addVertex(
                     T.label, username,
-                    "id", id,
+                    "id", username,
                     "dbsearch_link_s", href,
                     "dbsearch_title_s", name,
                     "dbsearch_abstract_t", username,
@@ -159,10 +158,10 @@ public class HtmlToMetadataProcessor implements Processor {
         }
 
         private synchronized Vertex getLinkNode(String link) {
-            if(graph.vertices("id", link).hasNext()) {
-                return graph.vertices("id", link).next();
+            if(graph.traversal().V().has("id",link).hasNext()) {
+                return graph.traversal().V().has("id",link).next();
             }
-            else return graph.addVertex("id", link, T.label, link);
+            else return graph.addVertex("id", link, T.label, link, TYPE, "Concept");
         }
 
         /**
