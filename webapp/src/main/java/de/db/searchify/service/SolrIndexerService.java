@@ -62,6 +62,8 @@ public class SolrIndexerService {
                             }
                         });
                 solrClient.commit();
+
+                // TODO: generate the treeview.json
             } catch (IOException | SolrServerException e) {
                 log.warn("Error during solrClient.commit() - it could take a while until changes are visible", e);
             } finally {
