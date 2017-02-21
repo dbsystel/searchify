@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>ExpertFinder TreeMap</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="styles/treemap.css">
+    </head>
+
+    <body>
+
+        <div class="header">
+          <div class="powered">
+            powered by Redlink
+          </div>
+          <div class="powered logo">
+            <a href="#">
+              <img src="images/db.png" alt="DB" width="80" /> 
+            </a>
+            Expert Finder
+          </div>
+        </div>
+        <div class="body">
+            <div class="center">
+                <!-- build:[data-file]  todo/treemap -->
+                <div id="treemap-container" data-file="http://localhost:8081/rest/expertfinder/treemap"></div>
+                <!-- /build -->
+            </div>
+        </div>
+
+        <!-- build:js(.) scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <script src="scripts/d3.min.js"></script>
+        <script src="scripts/treemap.js"></script>
+
+    </body>
+</html>

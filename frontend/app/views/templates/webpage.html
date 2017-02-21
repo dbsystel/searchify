@@ -1,0 +1,15 @@
+<h1 ng-bind-html="item.title | sanitize : true"></h1>
+<div class="resultdetails">
+  <div class="resulticon">
+    <img src="images/webpage.png">
+  </div>
+  <span class="title" ng-bind="item.modified | date:'medium'"></span>
+			<span class="subtitle">
+				<a target="_blank" ng-href="{{item.url}}" ng-bind="item.url | truncate: 100"></a>
+			</span>
+	<div style="clear:both;"></div>			
+</div>
+<div class="resultdescription">
+  <img ng-if="item.thumbnail" ng-src="{{imgBaseURL}}{{item.thumbnail}}">
+  <highlight-text item="item" highlight="highlight"></highlight-text>
+</div>
