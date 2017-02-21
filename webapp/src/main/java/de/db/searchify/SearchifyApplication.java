@@ -1,14 +1,15 @@
 package de.db.searchify;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.system.ApplicationPidFileWriter;
 
 @SpringBootApplication
 public class SearchifyApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SearchifyApplication.class, args);
-	}
+    public static void main(String[] args) {
+        final SpringApplication app = new SpringApplication(SearchifyApplication.class);
+        app.addListeners(new ApplicationPidFileWriter());
+        app.run(args);
+    }
 }
