@@ -13,6 +13,7 @@
     </prerequisites>
 
     <name>Searchify</name>
+    <description>Smart Search for Confluence</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -27,6 +28,8 @@
         <tinkerpop.version>3.2.3</tinkerpop.version>
         <jsop.version>1.8.2</jsop.version>
         <guava.version>21.0</guava.version>
+
+        <solr.version>6.4.1</solr.version>
 
         <confluence.version>5.10.2</confluence.version>
         <confluence.data.version>5.10.2</confluence.data.version>
@@ -44,7 +47,6 @@
 
         <module>confluence</module>
     </modules>
-
 
     <repositories>
         <repository>
@@ -66,6 +68,16 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.solr</groupId>
+                <artifactId>solr-solrj</artifactId>
+                <version>${solr.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>

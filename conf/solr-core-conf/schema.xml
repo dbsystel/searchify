@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<schema name="searchify" version="1.0">
+  
+  <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+  
+  <field name="doctype" type="string" indexed="true" stored="true"/>
+
+  <!-- generic -->
+  <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+  <field name="url" type="string" indexed="true" stored="true" multiValued="false"/>
+  
+  <field name="original" type="string" indexed="false" stored="true" multiValued="false"/>
+  
+  <field name="language" type="string" indexed="true" stored="true" multiValued="false"/>
+  
+  <field name="type" type="string" indexed="true" stored="true" multiValued="false"/>
+  
+  <field name="pagerank" type="float" indexed="true" stored="true" multiValued="false"/>
+  
+  <field name="type_split" type="text_ws_lower" indexed="true" stored="true" multiValued="false"/>
+  
+  <field name="application" type="string" indexed="true" stored="true" multiValued="true"/>
+  
+  <field name="title" type="string" indexed="true" stored="true" multiValued="false" />
+
+  <field name="sub_title" type="string" indexed="true" stored="true" multiValued="false" />
+  
+  <field name="thumbnail" type="string" indexed="false" stored="true" multiValued="false"/>
+
+  <field name="image_url" type="string" indexed="false" stored="true" multiValued="false"/>
+  
+  <field name="video_frame_url" type="string" indexed="false" stored="true" multiValued="false"/>
+  
+  <field name="source" type="string" indexed="true" stored="true" multiValued="false"/>
+  
+  <field name="modified" type="tdate" indexed="true" stored="true" multiValued="false" />
+  <field name="created" type="tdate" indexed="true" stored="true" multiValued="false" />
+  
+  <!-- language specific -->
+  <dynamicField name="*_de" type="text_de" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="*_en" type="text_en" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="*_fr" type="text_fr" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="*_it" type="text_it" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="*_es" type="text_es" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="*_cs" type="text_cs" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="*_ja" type="text_ja" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="*_none" type="text_general" indexed="true" stored="true" multiValued="true" termVectors="true" />
+
+  <field name="category" type="text_path" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <field name="category_delimited" type="pipe_delimited" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  
+  
+  <!-- dynamic fields for named entity types -->
+  <!-- Person: pers | Organization: org | location: loc | other types: misc | unkown (no type): unk -->
+  <!-- e.g. a German language Person 'namedentity_de_pers' -->
+  <!-- TODO: add this if we want language specific named entities - see also TODO in the SolrIndexer class
+       <dynamicField name="namedentity_de_*" type="text_de" indexed="true" stored="true" multiValued="true" termVectors="true" />
+       <dynamicField name="namedentity_en_*" type="text_en" indexed="true" stored="true" multiValued="true" termVectors="true" />
+       <dynamicField name="namedentity_fr_*" type="text_fr" indexed="true" stored="true" multiValued="true" termVectors="true" />
+       <dynamicField name="namedentity_it_*" type="text_it" indexed="true" stored="true" multiValued="true" termVectors="true" />
+       <dynamicField name="namedentity_es_*" type="text_es" indexed="true" stored="true" multiValued="true" termVectors="true" />
+       <dynamicField name="namedentity_cs_*" type="text_cs" indexed="true" stored="true" multiValued="true" termVectors="true" />
+       <dynamicField name="namedentity_ja_*" type="text_ja" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  -->
+  <!-- NOTE: This variant assumes language independent named entities -->
+  <dynamicField name="namedentity_*" type="string" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  
+  <!-- copy fields for strings -->
+  <field name="keywords" type="string_reduced" indexed="true" stored="true" multiValued="true"/>
+  
+  <field name="description" type="string" indexed="false" stored="true" multiValued="false"/>
+  
+  <field name="title_reduced" type="string_reduced" indexed="true" stored="true" multiValued="false" />
+
+  <field name="doctype_text" type="text_general" indexed="true" stored="true" multiValued="false"/>
+  
+  <field name="application_text" type="text_general" indexed="true" stored="true" multiValued="true"/>
+  
+  <field name="sub_title_reduced" type="string_reduced" indexed="true" stored="true" multiValued="false" />
+
+  <field name="content" type="text_general" indexed="true" stored="true" multiValued="false"/>
+  
+  <field name="namedentity" type="string_reduced" indexed="true" stored="true" multiValued="true"/>
+  
+  <!-- copy field for search -->
+  <field name="text" type="text_general" indexed="true" multiValued="true" termVectors="true" />
+  
+  <!-- copy field for spellchecking -->
+  <field name="spellcheck" type="text_ws_lower" multiValued="true" indexed="true" stored="true"/>
+  
+  <!-- facets -->
+  <!--
+      <dynamicField name="facet_de_*" type="string" indexed="true" stored="true" multiValued="true"/>
+      <dynamicField name="facet_en_*" type="string" indexed="true" stored="true" multiValued="true"/>
+  -->
+  
+  <!-- generic dynamic fields -->
+  <dynamicField name="dynamic_b_*" type="bool" indexed="true" stored="true" multiValued="true"/>
+  <dynamicField name="dynamic_l_*" type="long" indexed="true" stored="true" multiValued="true"/>
+  <dynamicField name="dynamic_f_*" type="float" indexed="true" stored="true" multiValued="true"/>
+  <dynamicField name="dynamic_d_*" type="tdate" indexed="true" stored="true" multiValued="true"/>
+  <dynamicField name="dynamic_s_*" type="string" indexed="true" stored="true" multiValued="true"/>
+  <dynamicField name="dynamic_de_*" type="text_de" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="dynamic_en_*" type="text_en" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="dynamic_fr_*" type="text_fr" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="dynamic_it_*" type="text_it" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="dynamic_es_*" type="text_es" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="dynamic_cs_*" type="text_cs" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="dynamic_ja_*" type="text_ja" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  <dynamicField name="dynamic_uri_*" type="string" indexed="true" stored="true" multiValued="true"/>
+  <!-- dynamic field for none supported languages (e.g. dynamic_ar_*)-->
+  <dynamicField name="dynamic_*" type="text_general" indexed="true" stored="true" multiValued="true" termVectors="true" />
+  
+  <!-- copy to string fields -->
+  <copyField source="keywords_*" dest="keywords"/>
+  
+  <copyField source="namedentity_*" dest="namedentity"/>
+  
+  <copyField source="description_*" dest="description"/>
+  
+  <copyField source="application" dest="application_text"/>
+  
+  <copyField source="content_*" dest="content"/>
+  
+  <copyField source="title_*" dest="title"/>
+  <copyField source="title_*" dest="title_reduced"/>
+
+  <copyField source="sub_title_*" dest="sub_title"/>
+  <copyField source="sub_title_*" dest="sub_title_reduced"/>
+
+
+  <!-- copy to text -->
+  <copyField source="title_*" dest="text"/>
+
+  <copyField source="sub_title_*" dest="text"/>
+  
+  <copyField source="description_*" dest="text"/>
+
+  <copyField source="doctype" dest="doctype_text"/>
+
+  <copyField source="keywords_*" dest="text"/>
+  
+  <copyField source="content_*" dest="text"/>
+  
+  <copyField source="category" dest="text" />
+  <copyField source="category" dest="category_delimited" />
+  
+  <!-- copy to spellcheck -->
+  <copyField source="category" dest="spellcheck" />
+  <copyField source="title_*" dest="spellcheck"/>
+  <copyField source="sub_title_*" dest="spellcheck"/>
+  <copyField source="keywords_*" dest="spellcheck"/>
+  
+  <copyField source="type" dest="type_split"/>
+  
+  <uniqueKey>id</uniqueKey>
+  
+  <!-- field types -->
+  <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+  <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+  <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0" />
+  <fieldType name="bool" class="solr.BoolField" sortMissingLast="true" omitNorms="true" />
+  
+  <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory"
+              generateWordParts="1"
+              generateNumberParts="1"
+              catenateWords="1"
+              catenateNumbers="1"
+              catenateAll="1"
+              preserveOriginal="1"
+              />
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords_all.txt"/>
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  
+  <fieldType name="text_ws_lower" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <!-- charFilter class="solr.PatternReplaceCharFilterFactory" pattern="-" replacement=""/ -->
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory"
+              generateWordParts="1"
+              generateNumberParts="1"
+              catenateWords="1"
+              catenateNumbers="1"
+              catenateAll="1"
+              preserveOriginal="1"
+              />
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords_all.txt" />
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  
+  <!-- German -->
+  <fieldType name="text_de" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory"
+              generateWordParts="1"
+              generateNumberParts="1"
+              catenateWords="1"
+              catenateNumbers="1"
+              catenateAll="1"
+              preserveOriginal="1"
+              />
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_de.txt" format="snowball" />
+      <filter class="solr.GermanNormalizationFilterFactory"/>
+      <filter class="solr.GermanLightStemFilterFactory"/>
+      <filter class="solr.SnowballPorterFilterFactory" language="German2"/>
+    </analyzer>
+  </fieldType>
+  
+  <!-- English -->
+  <fieldType name="text_en" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory"
+              generateWordParts="1"
+              generateNumberParts="1"
+              catenateWords="1"
+              catenateNumbers="1"
+              catenateAll="1"
+              preserveOriginal="1"
+              /> 
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <filter class="solr.StopFilterFactory"
+              ignoreCase="true"
+              words="lang/stopwords_en_2.txt"
+              />
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.EnglishPossessiveFilterFactory"/>
+      <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+      <filter class="solr.PorterStemFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  
+  <!-- French -->
+  <fieldType name="text_fr" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory"
+              generateWordParts="1"
+              generateNumberParts="1"
+              catenateWords="1"
+              catenateNumbers="1"
+              catenateAll="1"
+              preserveOriginal="1"
+              />
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <!-- removes l', etc -->
+      <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_fr.txt"/>
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_fr.txt"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.FrenchLightStemFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  
+  <!-- Italian -->
+  <fieldType name="text_it" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+       <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory"
+              generateWordParts="1"
+              generateNumberParts="1"
+              catenateWords="1"
+              catenateNumbers="1"
+              catenateAll="1"
+              preserveOriginal="1"
+              />
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <!-- removes l', etc -->
+      <filter class="solr.ElisionFilterFactory" ignoreCase="true" articles="lang/contractions_it.txt"/>
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_it.txt"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.ItalianLightStemFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  
+  <!-- Spanish -->
+  <fieldType name="text_es" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory"
+              generateWordParts="1"
+              generateNumberParts="1"
+              catenateWords="1"
+              catenateNumbers="1"
+              catenateAll="1"
+              preserveOriginal="1"
+              />
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_es.txt"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.SpanishLightStemFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  
+  <!-- Czech (NOTE: countryCode is 'cz' but languageCode is 'cs' -->
+  <fieldType name="text_cs" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory"
+              generateWordParts="1"
+              generateNumberParts="1"
+              catenateWords="1"
+              catenateNumbers="1"
+              catenateAll="1"
+              preserveOriginal="1"
+              />
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_cs.txt"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.CzechStemFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  
+  <!-- Japanese (requires lucene-analyzers-kuromoji-{{version}}.jar) -->
+  <fieldType name="text_ja" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <tokenizer class="solr.JapaneseTokenizerFactory"/>
+      <filter class="solr.JapaneseBaseFormFilterFactory"/>
+      <filter class="solr.WordDelimiterFilterFactory"
+              generateWordParts="1"
+              generateNumberParts="1"
+              catenateWords="1"
+              catenateNumbers="1"
+              catenateAll="1"
+              preserveOriginal="1"
+              />
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <filter class="solr.JapanesePartOfSpeechStopFilterFactory" tags="lang/stoptags_ja.txt" />
+      <filter class="solr.CJKWidthFilterFactory"/>
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_ja.txt" />
+      <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+
+
+  <fieldType name="string_reduced" class="solr.TextField" sortMissingLast="true" omitNorms="true">
+    <analyzer>
+      <charFilter class="solr.MappingCharFilterFactory" mapping="mapping-FoldToASCII.txt"/>
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+      <filter class="solr.StopFilterFactory"
+              ignoreCase="true"
+              words="stopwords_keywords.txt"
+              />
+      <filter class="solr.LowerCaseFilterFactory" />
+    </analyzer>
+  </fieldType>
+  
+  <fieldType name="text_path" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="|" replace=">"/>
+      <filter class="solr.TrimFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  
+  <fieldType name="pipe_delimited" class="solr.TextField">
+    <analyzer>
+      <tokenizer class="solr.PatternTokenizerFactory" pattern="\\s*\\|\\s*" />
+    </analyzer>
+  </fieldType>
+  
+  <fieldType name="tdate" class="solr.TrieDateField" precisionStep="6" positionIncrementGap="0"/>
+</schema>
