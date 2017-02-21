@@ -1,115 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>de.db.searchify</groupId>
-		<artifactId>searchify</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-	</parent>
+    <parent>
+        <groupId>de.db.searchify</groupId>
+        <artifactId>searchify</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 
-	<artifactId>searchify-webapp</artifactId>
-	<packaging>jar</packaging>
-	<name>Searchify :: Webapp</name>
-	<description>Demo project for Spring Boot</description>
+    <artifactId>searchify-webapp</artifactId>
+    <packaging>jar</packaging>
+    <name>Searchify :: Webapp</name>
+    <description>Demo project for Spring Boot</description>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring.boot.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${spring.boot.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.hibernate</groupId>
-						<artifactId>hibernate-validator</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-		</dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-validator</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
 
-	</dependencyManagement>
+    </dependencyManagement>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>${jsop.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsop.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.tinkerpop</groupId>
-			<artifactId>gremlin-core</artifactId>
-			<version>${tinkerpop.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tinkerpop</groupId>
-			<artifactId>gremlin-driver</artifactId>
-			<version>${tinkerpop.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tinkerpop</groupId>
-			<artifactId>tinkergraph-gremlin</artifactId>
-			<version>${tinkerpop.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.tinkerpop</groupId>
+            <artifactId>gremlin-core</artifactId>
+            <version>${tinkerpop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tinkerpop</groupId>
+            <artifactId>gremlin-driver</artifactId>
+            <version>${tinkerpop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tinkerpop</groupId>
+            <artifactId>tinkergraph-gremlin</artifactId>
+            <version>${tinkerpop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-							<!--<goal>build-info</goal>-->
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<!-- repackage -->
-					<classifier>exec</classifier>
-					<mainClass>de.db.searchify.SearchifyApplication</mainClass>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                            <!--<goal>build-info</goal>-->
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- repackage -->
+                    <classifier>exec</classifier>
+                    <mainClass>de.db.searchify.SearchifyApplication</mainClass>
 
-					<!-- build-info -->
-					<additionalProperties>
-						<encoding>UTF-8</encoding>
-						<java.source>${java.version}</java.source>
-						<java.target>${java.version}</java.target>
+                    <!-- build-info -->
+                    <additionalProperties>
+                        <encoding>UTF-8</encoding>
+                        <java.source>${java.version}</java.source>
+                        <java.target>${java.version}</java.target>
 
-						<artifact>${project.parent.artifactId}</artifact>
-						<name>${project.parent.name}</name>
-						<description>${project.parent.description}</description>
-					</additionalProperties>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
+                        <artifact>${project.parent.artifactId}</artifact>
+                        <name>${project.parent.name}</name>
+                        <description>${project.parent.description}</description>
+                    </additionalProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
