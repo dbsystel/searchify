@@ -1,0 +1,675 @@
+/* line 1, ../../app/styles/main.scss */
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: 0 none;
+  box-sizing: border-box;
+}
+
+/* line 11, ../../app/styles/main.scss */
+body {
+  position: relative;
+  display: block;
+  font-family: Arial, sans-serif;
+  font-size: 12pt;
+  color: #4a4a4a;
+  width: 100%;
+  overflow: hidden;
+  min-width: 1200px;
+}
+/* line 22, ../../app/styles/main.scss */
+body .center {
+  margin: 0 auto;
+  width: 100%;
+  margin-top: 30px;
+}
+/* line 27, ../../app/styles/main.scss */
+body .center h2 {
+  text-align: center;
+}
+/* line 31, ../../app/styles/main.scss */
+body .center .recent {
+  width: 230px;
+  display: inline-block;
+  height: 70px;
+  border-top: 1px solid #ccc;
+  margin: 20px;
+  padding: 10px 5px;
+  height: 80px;
+  float: left;
+}
+/* line 41, ../../app/styles/main.scss */
+body .center .recent span {
+  display: block;
+}
+/* line 45, ../../app/styles/main.scss */
+body .center .recent .recent_header {
+  font-weight: bold;
+  font-size: 14px;
+  height: 65px;
+  overflow: hidden;
+}
+/* line 52, ../../app/styles/main.scss */
+body .center .recent .recent_header:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* line 57, ../../app/styles/main.scss */
+body .center .recent .recent_content {
+  font-size: 13px;
+  color: #999;
+}
+
+/* line 66, ../../app/styles/main.scss */
+.dashboard-item {
+  position: relative;
+  width: 50%;
+  float: left;
+  box-sizing: border-box;
+  padding: 0px;
+}
+
+/* line 74, ../../app/styles/main.scss */
+.applist {
+  position: relative;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+/* line 81, ../../app/styles/main.scss */
+.applist img {
+  width: 50px;
+  height: auto;
+  display: inline;
+  margin: 0 10px;
+}
+
+/* line 89, ../../app/styles/main.scss */
+.header {
+  background-color: #f2f2f2;
+  padding: 75px 0 45px 0;
+  position: relative;
+  border-bottom: 1px solid #dcdcdc;
+  z-index: 1;
+  display: block;
+  min-width: 1140px;
+}
+/* line 98, ../../app/styles/main.scss */
+.header .powered {
+  position: absolute;
+  top: 6px;
+  right: 13px;
+  font-size: 10px;
+}
+/* line 104, ../../app/styles/main.scss */
+.header .powered.usertop {
+  left: 13px;
+  color: #4a4a4a;
+}
+/* line 108, ../../app/styles/main.scss */
+.header .powered.usertop .selected-user {
+  color: #5d8ec7;
+  margin-left: 5px;
+}
+/* line 114, ../../app/styles/main.scss */
+.header .powered.logo {
+  left: 13px;
+  font-size: 2.5em;
+}
+/* line 120, ../../app/styles/main.scss */
+.header select {
+  position: relative;
+  float: right;
+  margin-right: 1px;
+  width: auto;
+  padding: 13px 40px 12px 15px;
+  background-color: #f4f4f4;
+  background-image: url("../images/select-arrow.png");
+  background-position: right 16px top 18px;
+  background-repeat: no-repeat;
+  background-size: 11px auto;
+  border-radius: 0;
+  font-size: 14px;
+  border: 0;
+  border-left: 1px solid #e7e7e7;
+  color: #999999;
+  cursor: pointer;
+}
+
+/* line 141, ../../app/styles/main.scss */
+.header .input {
+  display: block;
+  position: relative;
+  background-color: #fff;
+}
+/* line 146, ../../app/styles/main.scss */
+.header .input i {
+  position: absolute;
+  z-index: 1;
+  top: 13px;
+  left: 28px;
+  font-size: 20px;
+  color: #ccc;
+}
+/* line 155, ../../app/styles/main.scss */
+.header .input input {
+  width: 100%;
+  border: 0px;
+  background: none;
+  padding: 13px 73px 13px 73px;
+  position: relative;
+  z-index: 100;
+}
+/* line 164, ../../app/styles/main.scss */
+.header .input input:hover,
+.header .input input:active,
+.header .input input:focus {
+  outline: 0px !important;
+  -webkit-appearance: none;
+}
+/* line 172, ../../app/styles/main.scss */
+.header .input .typeahead, .header .input .suggestion {
+  position: absolute;
+  top: 13px;
+  left: 73px;
+  color: #999999;
+  z-index: 50;
+}
+/* line 180, ../../app/styles/main.scss */
+.header .input .suggestion {
+  font-size: 12px;
+  height: 20px;
+  overflow: hidden;
+}
+/* line 186, ../../app/styles/main.scss */
+.header .input .suggestion .inputtext {
+  color: rgba(255, 255, 255, 0);
+  font-size: 16px;
+  margin-right: 5px;
+}
+/* line 192, ../../app/styles/main.scss */
+.header .input .suggestion .suggestiontext {
+  margin-left: 5px;
+}
+
+/* line 199, ../../app/styles/main.scss */
+.container {
+  padding: 0 none !important;
+  width: 1160px !important;
+}
+
+/* line 204, ../../app/styles/main.scss */
+.left {
+  border-right: 1px solid #dcdcdc;
+  width: 300px;
+  float: left;
+  top: 0px;
+  overflow: scroll;
+  overflow-x: hidden;
+  position: fixed;
+  height: 100vh;
+  z-index: 0;
+}
+/* line 216, ../../app/styles/main.scss */
+.left .group {
+  border-bottom: 1px solid #dcdcdc;
+}
+/* line 220, ../../app/styles/main.scss */
+.left .group .group_title {
+  font-size: 9pt;
+  font-weight: bold;
+  padding: 9px 10px 5px 12px;
+  text-transform: uppercase;
+  background-color: #f2f2f2;
+}
+/* line 228, ../../app/styles/main.scss */
+.left .group .group_title.sticky {
+  position: fixed;
+  top: 118px;
+  width: 299px;
+  border-bottom: 1px solid #dcdcdc;
+  z-index: 50;
+}
+/* line 236, ../../app/styles/main.scss */
+.left .group .group_title.sticky.shiftable {
+  position: absolute;
+  top: 190px;
+  width: 299px;
+  border-bottom: 1px solid #dcdcdc;
+}
+/* line 243, ../../app/styles/main.scss */
+.left .group .item {
+  border-top: 1px solid #dcdcdc;
+  padding: 20px 15px 20px 68px;
+  border-left: 5px solid white;
+  cursor: pointer;
+  background-size: 45px auto;
+  background-repeat: no-repeat;
+  background-position: left 11px center;
+}
+/* line 252, ../../app/styles/main.scss */
+.left .group .item .short {
+  color: #5d8ec7;
+}
+/* line 256, ../../app/styles/main.scss */
+.left .group .item .short:before {
+  content: '[';
+}
+/* line 260, ../../app/styles/main.scss */
+.left .group .item .short:after {
+  content: ']';
+}
+/* line 265, ../../app/styles/main.scss */
+.left .group .item.project {
+  background-image: url("../images/project.png");
+}
+/* line 269, ../../app/styles/main.scss */
+.left .group .item.knowledge {
+  background-image: url("../images/knowledge.png");
+}
+/* line 273, ../../app/styles/main.scss */
+.left .group .item.qualification {
+  background-image: url("../images/qualification.png");
+}
+/* line 277, ../../app/styles/main.scss */
+.left .group .item.technology {
+  background-image: url("../images/technology.png");
+}
+/* line 281, ../../app/styles/main.scss */
+.left .group .item.webpage {
+  background-image: url("../images/webpage.png");
+}
+/* line 285, ../../app/styles/main.scss */
+.left .group .item.application {
+  background-image: url("../images/application.png");
+}
+/* line 289, ../../app/styles/main.scss */
+.left .group .item.document {
+  background-image: url("../images/document.png");
+}
+/* line 293, ../../app/styles/main.scss */
+.left .group .item.pdf {
+  background-image: url("../images/pdf-document.png");
+}
+/* line 297, ../../app/styles/main.scss */
+.left .group .item.jira {
+  background-image: url("../images/jira.png");
+}
+/* line 301, ../../app/styles/main.scss */
+.left .group .item.person {
+  background-image: url("../images/person-no-image.png");
+}
+/* line 305, ../../app/styles/main.scss */
+.left .group .item.jira.person {
+  background-image: none;
+}
+/* line 309, ../../app/styles/main.scss */
+.left .group .item.confluence {
+  background-image: url("../images/confluence.png");
+}
+/* line 313, ../../app/styles/main.scss */
+.left .group .item.confluence.person {
+  background-image: none;
+}
+/* line 317, ../../app/styles/main.scss */
+.left .group .item.filesystem {
+  background-image: url("../images/filesystem.png");
+}
+/* line 321, ../../app/styles/main.scss */
+.left .group .item:not(.selected):hover {
+  background-color: #f2f2f2;
+  border-left: 5px solid #f2f2f2;
+}
+/* line 327, ../../app/styles/main.scss */
+.left .group .item.selected {
+  border-left: 5px solid #5d8ec7;
+}
+/* line 331, ../../app/styles/main.scss */
+.left .group .title {
+  word-break: break-word;
+}
+
+/* line 338, ../../app/styles/main.scss */
+.resultdescription ul, .resultdescription ol {
+  margin: 10px 0 10px 30px;
+}
+
+/* line 342, ../../app/styles/main.scss */
+main {
+  position: relative;
+  margin-left: 320px;
+  width: 820px;
+  background-color: #ffffff;
+  padding: 45px 40px 25px 40px;
+  overflow: auto;
+  position: absolute;
+  overflow-y: auto;
+  top: 0px;
+}
+
+/* line 354, ../../app/styles/main.scss */
+h1 {
+  font-size: 18pt;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+/* line 361, ../../app/styles/main.scss */
+h2 {
+  font-size: 14pt;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* line 368, ../../app/styles/main.scss */
+h2.section {
+  border-top: 1px solid #dcdcdc;
+  padding-top: 20px;
+}
+
+/* line 373, ../../app/styles/main.scss */
+.resulticon {
+  position: relative;
+  float: left;
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+}
+
+/* line 381, ../../app/styles/main.scss */
+.resulticon img {
+  width: 100%;
+  height: auto;
+}
+
+/* line 386, ../../app/styles/main.scss */
+.resultdetails {
+  font-family: "Arial Narrow";
+  font-weight: normal;
+  font-size: 13pt;
+  margin: 20px 0 30px 0;
+}
+
+/* line 393, ../../app/styles/main.scss */
+.resultdetails a,
+.resultdescription a {
+  text-decoration: none;
+  color: #5d8ec7;
+}
+
+/* line 399, ../../app/styles/main.scss */
+.resultdetails .title {
+  margin: 5px 0 0 0;
+  display: block;
+  color: #5d8ec7;
+}
+
+/* line 405, ../../app/styles/main.scss */
+.resultdetails .groups {
+  margin: 5px 0 0 0;
+  display: block;
+}
+
+/* line 410, ../../app/styles/main.scss */
+.resultdescription,
+relation {
+  line-height: 1.4em;
+}
+
+/* line 415, ../../app/styles/main.scss */
+.resultdescription > table,
+relation > table {
+  margin: 20px 0 20px 0;
+  font-size: 10pt;
+  border-collapse: collapse;
+}
+
+/* line 423, ../../app/styles/main.scss */
+.resultdescription > table th,
+relation > table th {
+  background-color: #5d8ec7;
+  color: #ffffff;
+}
+
+/* line 429, ../../app/styles/main.scss */
+.resultdescription > table tr:nth-child(even) th,
+relation > table tr:nth-child(even) th {
+  background-color: #93b5dd;
+  color: #ffffff;
+}
+
+/* line 435, ../../app/styles/main.scss */
+.resultdescription > table th,
+.resultdescription > table td,
+relation > table th,
+relation > table td {
+  padding: 10px 20px 10px 20px;
+}
+
+/* line 442, ../../app/styles/main.scss */
+.resultdescription > table tr:nth-child(odd) td,
+relation > table tr:nth-child(odd) td {
+  background-color: #f2f2f2;
+}
+
+/* line 448, ../../app/styles/main.scss */
+relation button {
+  margin-bottom: 30px;
+}
+
+/* line 453, ../../app/styles/main.scss */
+button {
+  background: none;
+  background-size: 20px auto;
+  background-position: left 10px center;
+  background-repeat: no-repeat;
+  border: 1px solid #dcdcdc;
+  border-radius: 0;
+  margin-bottom: 5px;
+  padding: 7px 10px 7px 10px;
+  font-family: "Arial Narrow";
+  background-color: #f2f2f2;
+  font-size: 10pt;
+  color: #4a4a4a;
+  cursor: pointer;
+}
+/* line 468, ../../app/styles/main.scss */
+button.loading {
+  color: rgba(255, 255, 255, 0);
+  background-image: url("../images/loading.gif");
+  background-repeat: no-repeat;
+  background-size: 22px auto;
+  background-position: center center;
+}
+
+/* line 477, ../../app/styles/main.scss */
+button.details {
+  background-image: url("../images/details.png");
+  padding: 7px 10px 7px 40px;
+}
+
+/* line 482, ../../app/styles/main.scss */
+button.download {
+  background-image: url("../images/download.png");
+  padding: 7px 10px 7px 40px;
+}
+
+/* line 487, ../../app/styles/main.scss */
+button.print {
+  background-image: url("../images/print.png");
+  padding: 7px 10px 7px 40px;
+}
+
+/* line 492, ../../app/styles/main.scss */
+button.user {
+  padding: 7px 10px 7px 10px;
+  position: absolute;
+  top: 41px;
+  right: 20px;
+}
+
+/* line 499, ../../app/styles/main.scss */
+button.share {
+  background-image: url("../images/share.png");
+  padding: 7px 10px 7px 40px;
+  background-size: 18px auto;
+}
+
+/* line 505, ../../app/styles/main.scss */
+button.add-to-calendar {
+  background-image: url("../images/add_to_cal.png");
+  padding: 7px 10px 7px 40px;
+  background-size: 17px auto;
+  padding-left: 35px;
+}
+
+/* line 512, ../../app/styles/main.scss */
+button.write-email {
+  background-image: url("../images/write_email.png");
+  padding: 7px 10px 7px 40px;
+  background-size: 17px auto;
+  padding-left: 35px;
+}
+
+/* line 519, ../../app/styles/main.scss */
+.page {
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+}
+/* line 523, ../../app/styles/main.scss */
+.page em {
+  color: #e3001b;
+}
+
+/* line 528, ../../app/styles/main.scss */
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #5d8ec7;
+}
+
+/* line 534, ../../app/styles/main.scss */
+.link.external {
+  background-image: url("../images/external.png");
+  background-size: 10px;
+  padding-right: 25px;
+  background-position: center right 10px;
+  background-repeat: no-repeat;
+}
+
+/* line 541, ../../app/styles/main.scss */
+.call {
+  background-image: url("../images/phone.png");
+  background-size: 10px;
+  padding-right: 25px;
+  background-position: center right 10px;
+  background-repeat: no-repeat;
+}
+
+/* line 549, ../../app/styles/main.scss */
+img.gravatar {
+  border-radius: 50%;
+  height: 45px;
+  margin-right: 7px;
+}
+
+/* line 555, ../../app/styles/main.scss */
+.left img.gravatar {
+  position: absolute;
+  left: 16px;
+  margin-top: -11px;
+  z-index: 0;
+}
+
+/* line 562, ../../app/styles/main.scss */
+.single img.gravatar {
+  height: auto;
+}
+
+/* line 566, ../../app/styles/main.scss */
+.usertop {
+  top: 10px;
+}
+
+/* line 570, ../../app/styles/main.scss */
+.message {
+  /* padding: 10px 0;
+   font-size: 13px; */
+  padding: 9px 0 7px 13px;
+  font-size: 12px;
+  border-bottom: 1px solid #dcdcdc;
+  display: block;
+  color: #999;
+}
+
+/* line 580, ../../app/styles/main.scss */
+.correct {
+  color: red;
+}
+
+/* line 584, ../../app/styles/main.scss */
+.more {
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* line 590, ../../app/styles/main.scss */
+.view {
+  position: relative;
+  float: left;
+  width: 370px;
+  height: 260px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+/* line 601, ../../app/styles/main.scss */
+.map {
+  position: relative;
+  float: left;
+  width: 370px;
+  height: 260px;
+  overflow: hidden;
+}
+
+/* line 609, ../../app/styles/main.scss */
+.external-img {
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  overflow: hidden;
+  border-radius: 25px;
+}
+
+/* line 619, ../../app/styles/main.scss */
+.autocompletion {
+  position: absolute;
+  left: 60px;
+  background-color: white;
+  border-bottom: 1px solid #dcdcdc;
+  border-left: 1px solid #dcdcdc;
+  border-right: 1px solid #dcdcdc;
+}
+/* line 628, ../../app/styles/main.scss */
+.autocompletion ul li {
+  list-style: none;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+/* line 633, ../../app/styles/main.scss */
+.autocompletion ul li:hover {
+  background-color: #5d8ec7;
+  color: white;
+}
+
+/*# sourceMappingURL=main.css.map */

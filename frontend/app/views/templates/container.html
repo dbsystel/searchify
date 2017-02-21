@@ -1,0 +1,16 @@
+<h1 ng-bind-html="item.title | sanitize : true"></h1>
+<div class="resultdetails">
+ 	<div class="resulticon">
+    	<img src="images/application.png">
+  	</div>
+  	<span class="subtitle">
+		<a target="_blank" ng-href="{{item.url}}" ng-bind="item.url | truncate: 100"></a>
+	</span>
+	<div style="clear:both;"></div>
+</div>
+
+
+<div class="resultdescription">
+  <p ng-bind="item.description"></p>
+</div>
+<relation title="'Pages'" type="'containerpage'" item="item" search="search(text,id)"></relation>

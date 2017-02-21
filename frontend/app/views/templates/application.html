@@ -1,0 +1,20 @@
+<h1 ng-bind-html="item.title | sanitize : true"></h1>
+<div class="resultdetails">
+  <div class="resulticon">
+    <img src="images/application.png">
+  </div>
+  <span class="title" ng-bind="item.modified | date:'medium'"></span>
+  <span class="subtitle">
+	<a target="_blank" ng-href="{{item.url}}" ng-bind="item.url| truncate: 50"></a>
+  </span>
+	<div style="clear:both;"></div>  
+</div>
+<div class="resultdescription">
+  <p ng-bind="item.description"></p>
+  <relation title="'Related Experts'" type="'expert'" item="item" search="search(text,id)"></relation>
+  <relation title="'Related Applications'" type="'narrower'" item="item" search="search(text,id)"></relation>
+  <relation title="'Related Project'" type="'project'" item="item" search="search(text,id)"></relation>
+  <relation title="'Related Qualifications'" type="'qualification'" item="item" search="search(text,id)"></relation>
+  <relation title="'Related Knowledg Areas'" type="'knowledge'" item="item" search="search(text,id)"></relation>
+  <relation title="'Related Technologies'" type="'technology'" item="item" search="search(text,id)"></relation>
+</div>

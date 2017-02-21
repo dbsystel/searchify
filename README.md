@@ -1,2 +1,2 @@
-# searchify
-tüdelü
+# Searchify
+_Smart Search for Confluence_

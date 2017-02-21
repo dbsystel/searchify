@@ -1,0 +1,18 @@
+<h1 ng-bind-html="item.title | sanitize : true"></h1>
+<div class="resultdetails">
+  <div class="resulticon">
+    <img ng-src="{{getImage(item,'images/webpage.png')}}">
+  </div>
+  <span class="title" ng-bind="item.modified | date:'medium'"></span>
+			<span class="subtitle">
+				<a target="_blank" ng-href="{{item.url}}" ng-bind="item.url | truncate: 100"></a>
+			</span>
+	<div style="clear:both;"></div>			
+</div>
+<div class="resultdescription">
+  <table>
+    <tr ng-if="item.dynamic_s_combi_creator" ng-init="cid = (item.dynamic_s_combi_creator[0] | complex:'id'); cname = (item.dynamic_s_combi_creator[0]|complex:'name')"><th>Created by</th><td class="link" ng-click="search(cname,cid)" ng-bind="cname"></td></tr>
+    <tr ng-if="item.dynamic_s_combi_modifier" ng-init="aid = (item.dynamic_s_combi_modifier[0] | complex:'id'); aname = (item.dynamic_s_combi_modifier[0]|complex:'name')"><th>Modified by</th><td class="link" ng-click="search(aname,aid)" ng-bind="aname"></td></tr>
+  </table>
+  <highlight-text item="item" highlight="highlight"></highlight-text>
+</div>

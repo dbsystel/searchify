@@ -1,0 +1,22 @@
+<h1 ng-bind-html="item.title | sanitize : true"></h1>
+<div class="resultdetails">
+  <div class="resulticon">
+    <gravatar ng-if="item.dynamic_s_email" item="item"></gravatar>
+    <img src="images/person-no-image.png" ng-if="!item.dynamic_s_email && !item.image_url">
+    <div class="external-img"  style="background-image:url('{{item.image_url}}');" ng-if="!item.email"></div>
+  </div>
+   <span class="title">
+      <a target="_blank" class="link external" ng-href="{{item.url | urireplace}}" ng-bind="item.dynamic_none_alternateName"></a>
+   </span>
+ 
+  <span class="subtitle" ng-bind="item.dynamic_s_email"></span>
+  <div style="clear:both;"></div>
+</div>
+<div class="resultdescription">
+<relation title="'Related Applications'" type="'expert_application'" item="item" search="search(text,id)"></relation>
+<relation title="'Related Projects'" type="'expert_project'" item="item" search="search(text,id)"></relation>
+<relation title="'Related Qualifications'" type="'expert_qualification'" item="item" search="search(text,id)"></relation>
+<relation title="'Related Knowledg Areas'" type="'expert_knowledge'" item="item" search="search(text,id)"></relation>
+<relation title="'Related Technologies'" type="'expert_technology'" item="item" search="search(text,id)"></relation>
+</div>
+

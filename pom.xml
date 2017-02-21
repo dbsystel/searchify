@@ -13,6 +13,7 @@
     </prerequisites>
 
     <name>Searchify</name>
+    <description>Smart Search for Confluence</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -28,6 +29,8 @@
         <jsop.version>1.8.2</jsop.version>
         <guava.version>21.0</guava.version>
 
+        <solr.version>6.4.1</solr.version>
+
         <confluence.version>5.10.2</confluence.version>
         <confluence.data.version>5.10.2</confluence.data.version>
         <amps.version>6.2.6</amps.version>
@@ -36,15 +39,18 @@
         <!-- This key is used to keep the consistency between the key in atlassian-plugin.xml and the key to generate bundle. -->
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <atlassian.create.content.version>6.0.13</atlassian.create.content.version>
+
+        <node.version>v6.9.5</node.version>
+        <npm.version>3.10.10</npm.version>
     </properties>
 
 
     <modules>
+        <module>frontend</module>
         <module>webapp</module>
 
         <module>confluence</module>
     </modules>
-
 
     <repositories>
         <repository>
@@ -66,6 +72,16 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.solr</groupId>
+                <artifactId>solr-solrj</artifactId>
+                <version>${solr.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>

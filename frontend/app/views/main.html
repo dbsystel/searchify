@@ -1,0 +1,87 @@
+<div class="header">
+  <div class="input">
+    <i class="glyphicon glyphicon-search"></i>
+    <input ng-keydown="key($event)" ng-model="input" ng-change="search()" ng-enter="search()" ng-model-options="{ debounce: 200 }" placeholder="Expert Finding..." type="text" autofocus ng-trim="false">
+    <!--<div class="message" ng-if="spellcheckResult">No results for your query, showing results for <span class="correct" ng-bind="spellcheckResult"></span></div>-->
+    <div class="typeahead" ng-show="typeahead"><span ng-bind="typeahead"></span></div>
+    <div class="suggestion" ng-show="suggestion"><span ng-bind="input" class="inputtext"></span> &mdash; <span ng-bind="suggestion" class="suggestiontext"></span></div>
+    <!--<div class="autocompletion">
+      <ul>
+        <li ng-repeat="auto in result.autocomplete">
+          <span ng-bind="auto" ng-click="search(auto)"></span>
+        </li>
+      </ul>
+    </div>-->
+    <select ng-model="selectedFilters[$index]" ng-change="selectFacets()" ng-options="f as (f.name | niceName) for f in filter" class="ng-hide" ng-show="filterLoaded" ng-repeat="filter in filters">
+    </select>
+  </div>
+  <div class="powered">
+    powered by Redlink
+  </div>
+  <!--
+  <div class="powered usertop">
+    <span ng-if="!user">no user selected</span>
+    <span style="text-decoration: underline;cursor: pointer" ng-if="user" ng-click="logout()">Logout</span> <span ng-if="user" ng-bind="user" class="selected-user"></span>
+  </div>
+  -->
+  <div class="powered logo">
+    <a href="#">
+      <img src="images/db.png" alt="DB" width="80" /> 
+    </a>
+    Expert Finder
+  </div>
+</div>
+<div class="body" ng-show="!result && !selected && loaded">
+  <div class="center">
+    <div class="dashboard-item" style="float: inherit;margin: 0 auto;">
+	    <h2>Recent Searches</h2>
+	    <div ng-repeat="recent in recentSearches" class="recent">
+	      <span ng-click="search(recent.search)" class="recent_header" ng-bind="recent.search"></span>
+	      <span class="recent_content" ng-bind="recent.timestamp | date:'medium'"></span>
+	      <span class="recent_content">{{recent.results}} results</span>
+	    </div>
+    </div>
+
+    <!--<div class="dashboard-item">
+	    <h2>Example Searches</h2>
+	    <div ng-repeat="recent in exampleSearches" class="recent">
+	      <span ng-click="search(recent.search)" class="recent_header" ng-bind="recent.search"></span>
+	      <span class="recent_content" ng-bind="recent.timestamp | date:'medium'"></span>
+	      <span class="recent_content">{{recent.results}} results</span>
+	    </div>
+    </div>-->
+
+    <!--
+    <div class="dashboard-item center">
+	    <h2 style="margin-top: 70px; margin-bottom:20px;">Connected Applications for Search</h2>
+	    <div class="applist">
+		    <img src="images/confluence.png">
+		    <img src="images/jira.png">
+		    <img src="images/linkeddata.png">
+		    <img src="images/email.png">
+		    <img src="images/filesystem.png">
+		    <img src="images/webpage.png">
+	    </div>
+    </div>
+    -->
+
+  </div>
+</div>
+<div class="body" ng-show="loaded && ((result && result.grouped.doctype.matches > 0) || selected)">
+  <div autosize class="left">
+    <div class="message" ng-if="moreResult">Did you mean <span class="more" ng-click="search(moreResult)" ng-bind="moreResult"></span></div>
+    <div class="group" ng-repeat="group in result.grouped.doctype.groups">
+      <div class="group_title" ng-bind="group.groupValue ? group.groupValue : 'Others'"></div>
+      <div class="item" ng-repeat="doc in group.doclist.docs" ng-class="(doc.dynamic_application ? (doc.dynamic_application[0].toLowerCase() + ' ') : '')+ getClassForType(doc.doctype) + (doc.id === selected.id ? ' selected' : '')" ng-click="select(doc)">
+        <gravatar ng-if="doc.doctype == 'Person'" item="doc"></gravatar>
+        <span ng-if="doc.dynamic_s_key" class="short" ng-bind="doc.dynamic_s_key"></span>
+        <span class="title" ng-bind="doc.title ? doc.title : doc.url | truncate: 40 | sanitize : true"></span>
+        <!--<span class="score" ng-bind="doc.score"></span>
+        <span class="score" ng-bind="doc.last_modified"></span>-->
+      </div>
+    </div>
+  </div>
+  <main>
+    <result-item query="search(text,id)" item="selected" highlight="result.highlighting"></result-item>
+  </main>
+</div>
