@@ -16,6 +16,22 @@
     <build>
         <plugins>
             <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${project.basedir}/dist</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>${project.basedir}/.tmp</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>${project.basedir}/.sass-cache</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.0</version>
@@ -58,6 +74,12 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <classesDirectory>${project.basedir}/dist</classesDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
