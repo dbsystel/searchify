@@ -8,6 +8,7 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.tinkerpop.gremlin.structure.Graph;
+import org.apache.tinkerpop.gremlin.structure.T;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,8 +77,10 @@ public class SolrIndexerService {
     }
 
     protected SolrInputDocument vertex2SolrInputDocument(Vertex v) {
+        final SolrInputDocument doc = new SolrInputDocument();
         // TODO: create a SolrInputDocument from the Vertex
-        return null;
+        doc.setField("id", T.id.apply(v));
+        return doc;
     }
 
 }
