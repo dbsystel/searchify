@@ -11,8 +11,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SolrClientProperties {
 
 
-    private String zkConnection;
-    private String baseUrl;
+    private String zkConnection = null;
+    private String baseUrl = "http://localhost:8983/solr";
 
     public String getZkConnection() {
         return zkConnection;
