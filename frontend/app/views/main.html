@@ -67,15 +67,14 @@
 
   </div>
 </div>
-<div class="body" ng-show="loaded && ((result && result.grouped.doctype.matches > 0) || selected)">
+<div class="body" ng-show="loaded && ((result && result.grouped.dbsearch_doctype_s.matches > 0) || selected)">
   <div autosize class="left">
     <div class="message" ng-if="moreResult">Did you mean <span class="more" ng-click="search(moreResult)" ng-bind="moreResult"></span></div>
-    <div class="group" ng-repeat="group in result.grouped.doctype.groups">
+    <div class="group" ng-repeat="group in result.grouped.dbsearch_doctype_s.groups">
       <div class="group_title" ng-bind="group.groupValue ? group.groupValue : 'Others'"></div>
-      <div class="item" ng-repeat="doc in group.doclist.docs" ng-class="(doc.dynamic_application ? (doc.dynamic_application[0].toLowerCase() + ' ') : '')+ getClassForType(doc.doctype) + (doc.id === selected.id ? ' selected' : '')" ng-click="select(doc)">
-        <gravatar ng-if="doc.doctype == 'Person'" item="doc"></gravatar>
-        <span ng-if="doc.dynamic_s_key" class="short" ng-bind="doc.dynamic_s_key"></span>
-        <span class="title" ng-bind="doc.title ? doc.title : doc.url | truncate: 40 | sanitize : true"></span>
+      <div class="item" ng-repeat="doc in group.doclist.docs" ng-class="(doc.dynamic_application ? (doc.dynamic_application[0].toLowerCase() + ' ') : '')+ getClassForType(doc.dbsearch_doctype_s) + (doc.id === selected.id ? ' selected' : '')" ng-click="select(doc)">
+        <gravatar ng-if="doc.dbsearch_doctype_s == 'Person'" item="doc"></gravatar>
+        <span class="title" ng-bind="doc.dbsearch_title_t ? doc.dbsearch_title_t : doc.dbsearch_link_s | truncate: 40 | sanitize : true"></span>
         <!--<span class="score" ng-bind="doc.score"></span>
         <span class="score" ng-bind="doc.last_modified"></span>-->
       </div>
