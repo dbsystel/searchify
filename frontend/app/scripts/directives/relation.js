@@ -65,7 +65,7 @@ angular.module('ExpertFinderApp')
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'},filter:{name:'urireplace'}}
           ]
         }
-        ,'narrower':{
+        ,'parent_of':{
           params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"id:{narrower_ids}"},
           heads: [
             {name:"Narrower",value:"title",link:{field:'id',type:'simple'}},

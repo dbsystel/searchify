@@ -1,15 +1,14 @@
-<h1 ng-bind-html="item.title | sanitize : true"></h1>
+<h1 ng-bind-html="item.dbsearch_title_t | sanitize : true"></h1>
 <div class="resultdetails">
   <div class="resulticon">
-    <gravatar ng-if="item.dynamic_s_email" item="item"></gravatar>
-    <img src="images/person-no-image.png" ng-if="!item.dynamic_s_email && !item.image_url">
-    <div class="external-img"  style="background-image:url('{{item.image_url}}');" ng-if="!item.email"></div>
+    <gravatar ng-if="item.dbsearch_author_email_s" item="item"></gravatar>
+    <img src="images/person-no-image.png" ng-if="!item.dbsearch_author_email_s">
   </div>
    <span class="title">
       <a target="_blank" class="link external" ng-href="{{item.url | urireplace}}" ng-bind="item.dynamic_none_alternateName"></a>
    </span>
  
-  <span class="subtitle" ng-bind="item.dynamic_s_email"></span>
+  <span class="subtitle" ng-bind="item.dbsearch_author_email_s"></span>
   <div style="clear:both;"></div>
 </div>
 <div class="resultdescription">
