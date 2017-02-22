@@ -30,6 +30,13 @@ angular.module('ExpertFinderApp')
           {name: "Link", value: "dbsearch_link_s", link: {field:'id', type: 'external'} }
         ]
       },
+      'author_of' : {
+        params: {defType:"edismax", rows: 5, fqt:"dbsearch_doctype_s:Document AND relation_uri_author_of_ss:{id}"},
+        heads: [
+          {name: "Document", value: "dbsearch_title_s", link: {field:'id', type: 'simple'} },
+          {name: "Link", value: "dbsearch_link_s", link: {field:'id', type: 'external'} }
+        ]
+      },
       'expert_application':{
           params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"dbsearch_doctype_s:Application AND relation_uri_expert:{id}"},
           heads: [
