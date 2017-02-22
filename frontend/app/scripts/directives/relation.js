@@ -23,6 +23,13 @@ angular.module('ExpertFinderApp')
     };
 
     var query = {
+      'author' : {
+        params: {defType:"edismax", rows: 5, fqt:"relation_uri_author_of_ss:{id}"},
+        heads: [
+          {name: "Author", value: "dbsearch_title_s", link: {field:'id', type: 'simple'} },
+          {name: "Link", value: "dbsearch_link_s", link: {field:'id', type: 'external'} }
+        ]
+      },
       'expert_application':{
           params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"dbsearch_doctype_s:Application AND relation_uri_expert:{id}"},
           heads: [
@@ -134,7 +141,7 @@ angular.module('ExpertFinderApp')
             var elink = $filter('urireplace')(datatitem[link.field]);
             $window.open(elink, '_blank');
           } else if(link.type === "simple") {
-            scope.search({text:datatitem.title,id:datatitem.id});
+            scope.search({text:datatitem.dbsearch_title_s,id:datatitem.id});
           }  else {
               var text = $filter('complex')(datatitem[link.field],'name');
               var id = $filter('complex')(datatitem[link.field],'id');
