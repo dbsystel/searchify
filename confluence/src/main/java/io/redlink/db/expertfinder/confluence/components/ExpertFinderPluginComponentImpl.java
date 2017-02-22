@@ -1,11 +1,9 @@
-package io.redlink.db.expertfinder.confluence.impl;
+package io.redlink.db.expertfinder.confluence.components;
 
-import com.atlassian.confluence.util.i18n.I18NBean;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.ApplicationProperties;
 import com.atlassian.sal.api.message.I18nResolver;
-import io.redlink.db.expertfinder.confluence.api.ExpertFinderPluginComponent;
 
 import javax.inject.Inject;
 import javax.inject.Named;
