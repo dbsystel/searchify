@@ -30,6 +30,7 @@ public class SerialisationService {
             builder.append("\tnode [\n");
             appendProperty(builder, "id", vertex.id());
             appendProperty(builder, "label", vertex.label());
+            if(vertex.property("dbsearch_pagerank_d").isPresent()) appendProperty(builder, "rank", vertex.property("dbsearch_pagerank_d").value());
             appendProperty(builder, "type", vertex.property("dbsearch_doctype_s").isPresent() ? vertex.property("dbsearch_doctype_s").value() : "None");
             builder.append("\t]\n");
         });
