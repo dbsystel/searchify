@@ -21,8 +21,9 @@ public class DecodingProcessor implements Processor {
     @Override
     public void run() {
         graph.vertices().forEachRemaining(vertex -> {
-            if(vertex.property("dbsearch_content_t").isPresent()) {
-                vertex.property(VertexProperty.Cardinality.single, "dbsearch_content_t", decode(vertex.property("dbsearch_content_t").value())) ;
+            if(vertex.property("content_base64").isPresent()) {
+                vertex.property(VertexProperty.Cardinality.single, "dbsearch_content_t", decode(vertex.property("content_base64").value())) ;
+                vertex.property("content_base64").remove();
             }
         });
     }
