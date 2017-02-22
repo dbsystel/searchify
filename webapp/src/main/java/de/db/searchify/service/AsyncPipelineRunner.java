@@ -3,6 +3,7 @@ package de.db.searchify.service;
 import de.db.searchify.model.Status;
 import de.db.searchify.processor.HtmlToMetadataProcessor;
 import de.db.searchify.processor.LinkBuilderProcessor;
+import de.db.searchify.processor.PageRankProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -26,12 +27,17 @@ public class AsyncPipelineRunner {
     @Autowired
     SolrIndexerService solrIndexerService;
 
+    @Autowired
+    PageRankProcessor pageRankProcessor;
+
     @Async
     public Future<Status> runAsync(Status status) throws InterruptedException {
         htmlToMetadataProcessor.run();
         status.setMessage("html preprocessed");
         linkBuilderProcessor.run();
         status.setMessage("links build");
+        pageRankProcessor.run();
+        status.setMessage("pagerank build");
         solrIndexerService.index();
         status.setMessage("Completed successfully");
         status.setState(Status.State.idle);

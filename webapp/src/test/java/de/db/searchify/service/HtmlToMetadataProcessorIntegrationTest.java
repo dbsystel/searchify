@@ -48,7 +48,7 @@ public class HtmlToMetadataProcessorIntegrationTest {
 
     @Test
     public void testRealData() throws Exception {
-        //loadData();
+        loadData();
 
         pipelineService.run();
 
@@ -56,8 +56,8 @@ public class HtmlToMetadataProcessorIntegrationTest {
             Thread.sleep(500);
         }
 
-        //assertEquals(42, Iterators.size(graph.vertices()));
-        //assertEquals(27,Iterators.size(graph.edges()));
+        assertEquals(42, Iterators.size(graph.vertices()));
+        assertEquals(52,Iterators.size(graph.edges()));
 
         System.out.println(Iterators.size(graph.vertices())+ " nodes, " + Iterators.size(graph.edges()) + " edges");
 
