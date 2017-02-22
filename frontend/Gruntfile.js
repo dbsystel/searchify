@@ -383,11 +383,8 @@ module.exports = function (grunt) {
         },
         constants: {
           ENV: {
-            solrEndpoint: 'http://localhost:8983/solr/main/redlink',
-            selectEndpoint: 'http://localhost:8983/solr/main/select',
-            imageEndpoint: 'http://localhost:8983/solr/main/tn/',
-            analysisEndpoint: 'http://localhost:8983/solr/analytics/select',
-            storeEndpoint: 'http://localhost:8983/solr/main/store',
+            solrEndpoint: 'http://localhost:8983/solr/expertfinder/redlink',
+            selectEndpoint: 'http://localhost:8983/solr/expertfinder/select',
             treemapEndpoint: 'http://localhost:8081/rest/expertfinder/treemap'
           }
         }

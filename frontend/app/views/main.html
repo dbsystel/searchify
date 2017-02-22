@@ -74,7 +74,7 @@
       <div class="group_title" ng-bind="group.groupValue ? group.groupValue : 'Others'"></div>
       <div class="item" ng-repeat="doc in group.doclist.docs" ng-class="(doc.dynamic_application ? (doc.dynamic_application[0].toLowerCase() + ' ') : '')+ getClassForType(doc.dbsearch_doctype_s) + (doc.id === selected.id ? ' selected' : '')" ng-click="select(doc)">
         <gravatar ng-if="doc.dbsearch_doctype_s == 'Person'" item="doc"></gravatar>
-        <span class="title" ng-bind="doc.dbsearch_title_t ? doc.dbsearch_title_t : doc.dbsearch_link_s | truncate: 40 | sanitize : true"></span>
+        <span class="title" ng-bind="doc.dbsearch_title_s ? doc.dbsearch_title_s : doc.dbsearch_link_s | truncate: 40 | sanitize : true"></span>
         <!--<span class="score" ng-bind="doc.score"></span>
         <span class="score" ng-bind="doc.last_modified"></span>-->
       </div>

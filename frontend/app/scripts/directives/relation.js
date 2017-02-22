@@ -13,9 +13,9 @@ angular.module('ExpertFinderApp')
 
     var data = {
       heads: [
-        {name:"A",value:"source"},
-        {name:"Title",value:"title"},
-        {name:"Last update",value:"modified",filter:{name:'date'}}
+        {name:"A",value:"dbsearch_link_s"},
+        {name:"Title",value:"dbsearch_title_s"},
+        {name:"Last update",value:"dbsearch_pubdate_tdt",filter:{name:'date'}}
       ],
       dataitems: [
         {source:"Jira / Service Hub", title:"Performance problem at loading assets module in workspace with many assets", update:12321321321}
@@ -24,84 +24,84 @@ angular.module('ExpertFinderApp')
 
     var query = {
       'expert_application':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Application AND relation_uri_expert:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"dbsearch_doctype_s:Application AND relation_uri_expert:{id}"},
           heads: [
             {name:"Application",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'expert_project':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Project AND relation_uri_expert_ss:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"dbsearch_doctype_s:Project AND relation_uri_expert_ss:{id}"},
           heads: [
             {name:"Project",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'expert_qualification':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Qualification AND relation_uri_expert_ss:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"dbsearch_doctype_s:Qualification AND relation_uri_expert_ss:{id}"},
           heads: [
             {name:"Qualification",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'expert_knowledge':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Knowledge AND relation_uri_expert_ss:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"dbsearch_doctype_s:Knowledge AND relation_uri_expert_ss:{id}"},
           heads: [
             {name:"Knowledge",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'expert_technology':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Technology AND relation_uri_expert_ss:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"dbsearch_doctype_s:Technology AND relation_uri_expert_ss:{id}"},
           heads: [
             {name:"Technology",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'expert':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"id:{expert_ids}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"id:{expert_ids}"},
           heads: [
             {name:"Expert",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'},filter:{name:'urireplace'}}
           ]
         }
         ,'parent_of':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"id:{narrower_ids}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"id:{narrower_ids}"},
           heads: [
             {name:"Narrower",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'application':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"id:{application_ids}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"id:{application_ids}"},
           heads: [
             {name:"Application",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'project':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"id:{project_ids}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"id:{project_ids}"},
           heads: [
             {name:"Project",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'qualification':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"id:{qualification_ids}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"id:{qualification_ids}"},
           heads: [
             {name:"Qualification",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'knowledge':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"id:{knowledge_ids}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"id:{knowledge_ids}"},
           heads: [
             {name:"Knowledge",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'technology':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"id:{technology_ids}"},
+          params:{defType:"edismax",rowst:3,sort:"dbsearch_pubdate_tdt desc",fqt:"id:{technology_ids}"},
           heads: [
             {name:"Technology",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}

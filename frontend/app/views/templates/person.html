@@ -1,11 +1,11 @@
-<h1 ng-bind-html="item.dbsearch_title_t | sanitize : true"></h1>
+<h1 ng-bind-html="item.dbsearch_title_s | sanitize : true"></h1>
 <div class="resultdetails">
   <div class="resulticon">
     <gravatar ng-if="item.dbsearch_author_email_s" item="item"></gravatar>
     <img src="images/person-no-image.png" ng-if="!item.dbsearch_author_email_s">
   </div>
    <span class="title">
-      <a target="_blank" class="link external" ng-href="{{item.url | urireplace}}" ng-bind="item.dynamic_none_alternateName"></a>
+      <a target="_blank" class="link external" ng-href="{{item.dbsearch_link_s | urireplace}}" ng-bind="item.dbsearch_link_s"></a>
    </span>
  
   <span class="subtitle" ng-bind="item.dbsearch_author_email_s"></span>
@@ -15,7 +15,7 @@
 <relation title="'Related Applications'" type="'expert_application'" item="item" search="search(text,id)"></relation>
 <relation title="'Related Projects'" type="'expert_project'" item="item" search="search(text,id)"></relation>
 <relation title="'Related Qualifications'" type="'expert_qualification'" item="item" search="search(text,id)"></relation>
-<relation title="'Related Knowledg Areas'" type="'expert_knowledge'" item="item" search="search(text,id)"></relation>
+<relation title="'Related Knowledge Areas'" type="'expert_knowledge'" item="item" search="search(text,id)"></relation>
 <relation title="'Related Technologies'" type="'expert_technology'" item="item" search="search(text,id)"></relation>
 </div>
 

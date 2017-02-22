@@ -1,6 +1,7 @@
 package de.db.searchify.service;
 
 import de.db.searchify.model.Status;
+import de.db.searchify.processor.DecodingProcessor;
 import de.db.searchify.processor.HtmlToMetadataProcessor;
 import de.db.searchify.processor.LinkBuilderProcessor;
 import de.db.searchify.processor.PageRankProcessor;
@@ -30,8 +31,13 @@ public class AsyncPipelineRunner {
     @Autowired
     PageRankProcessor pageRankProcessor;
 
+    @Autowired
+    DecodingProcessor decodingProcessor;
+
     @Async
     public Future<Status> runAsync(Status status) throws InterruptedException {
+        decodingProcessor.run();
+        status.setMessage("base64 encoding preprocessed");
         htmlToMetadataProcessor.run();
         status.setMessage("html preprocessed");
         linkBuilderProcessor.run();
