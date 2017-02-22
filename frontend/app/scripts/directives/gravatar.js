@@ -14,11 +14,11 @@ angular.module('ExpertFinderApp')
         item: '='
       },
       link: function postLink(scope, element, attrs) {
-        var email = scope.item.dynamic_s_email;
+        var email = scope.item.dbsearch_author_email_s;
 
         if(email) {
           var hash = md5.createHash(email[0]);
-          element.html('<img class="gravatar" src="https://secure.gravatar.com/avatar/'+hash+'?d=wavatar&s=50">');
+          element.html('<img class="gravatar" src="https://secure.gravatar.com/avatar/'+hash+'?d=mm&s=50">');
         }
       }
     };
