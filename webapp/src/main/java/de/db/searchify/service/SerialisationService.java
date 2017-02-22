@@ -18,7 +18,7 @@ public class SerialisationService {
         StringBuilder builder = new StringBuilder();
         builder.append("graph [\n");
         builder.append("\tdirected 1\n");
-        builder.append("\tcomment \"Searchify Content Graph\"")
+        builder.append("\tcomment \"Searchify Content Graph\"");
         appendNodes(builder);
         appendEdges(builder);
         builder.append("]");
