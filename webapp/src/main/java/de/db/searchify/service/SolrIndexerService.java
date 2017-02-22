@@ -7,6 +7,7 @@ import com.google.common.collect.Iterators;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
+import org.apache.tinkerpop.gremlin.structure.Direction;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.T;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
@@ -35,6 +36,10 @@ public class SolrIndexerService {
     private final Graph gremlin;
 
     private final AtomicBoolean indexing;
+
+    private enum Relation {
+        author, expert, technologies, applications, parent, knowledges
+    }
 
     @Autowired
     public SolrIndexerService(SolrClient solrClient, Graph gremlin) {
@@ -82,6 +87,25 @@ public class SolrIndexerService {
         final SolrInputDocument doc = new SolrInputDocument();
         // TODO: create a SolrInputDocument from the Vertex
         doc.setField("id", T.id.apply(v));
+
+        v.properties().forEachRemaining(prop -> {
+            if(!prop.key().endsWith("_tdt")) {
+                doc.setField(prop.key(), prop.value());
+            }
+        });
+
+        v.edges(Direction.OUT).forEachRemaining(edge -> {
+            doc.addField("relation_uri_" + edge.label() + "_ss", edge.inVertex().property("id").value());
+            doc.addField("relation_combi_" + edge.label() + "_ss", edge.inVertex().property("id").value() + " ::: " + edge.inVertex().property("dbsearch_title_s").value()); //TODO should be a complex field
+            doc.addField("relation_name_" + edge.label() + "_txt", edge.inVertex().property("dbsearch_title_s").value());
+        });
+
+        v.edges(Direction.IN).forEachRemaining(edge -> {
+            doc.addField("relation_uri_" + edge.label() + "_of_ss", edge.outVertex().property("id").value());
+            doc.addField("relation_combi_" + edge.label() + "_of_ss", edge.outVertex().property("id").value() + " ::: " + edge.outVertex().property("dbsearch_title_s").value()); //TODO should be a complex field
+            doc.addField("relation_name_" + edge.label() + "_of_txt", edge.outVertex().property("dbsearch_title_s").value());
+        });
+
         return doc;
     }
 

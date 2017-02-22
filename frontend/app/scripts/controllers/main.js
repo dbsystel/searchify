@@ -25,15 +25,15 @@ angular.module('ExpertFinderApp')
 
     var params = {
       "defType": "edismax",
-      "qf": "dynamic_s_key^5.0 dynamic_expert_of^20.0 dynamic_application^3.0 dynamic_expert^3.0 dynamic_project^3.0 dynamic_qualification^3.0 dynamic_narrower^3.0 dynamic_technology^3.0 dynamic_knowledge^3.0 doctype_text^10.0 title_"+lang+"^4.0 title_none^4.0 dynamic_s_alternateName^1.0 keywords_"+lang+"^0.5 keywords_none^1 type_split^15.0 content_"+lang+"^0.4 content_none^0.4 text^1.0",
+      "qf": "relation_expert_of_txt^20.0 relation_application_txt^3.0 relation_expert_txt^3.0 relation_project_txt^3.0 relation_qualification_txt^3.0 relation_parent_of_txt^3.0 relation_technology_txt^3.0 relation_knowledge_txt^3.0 dbsearch_doctype_s^10.0 dbsearch_title_t^4.0 dbsearch_content_t^0.4",
       "group": true,
-      "group.field": "doctype",
+      "group.field": "dbsearch_doctype_s",
       "group.limit": 6,
-      "bq":"doctype:Person^10.0 doctype:Task^3.0 doctype:Project^3.0",
-      "fl":"title,thumbnail,doctype,modified,created,url,id,source,type,dynamic_*,image_url,description",
+      "bq":"dbsearch_doctype_s:Person^10.0",
+      "fl":"*,score",
       //"pf":"title_en~4^10.0 keyword_en~4^3.0 type^50.0 content_en^2.0 text", TODO
       //"qs":"10",
-      "bf":"product(recip(ms(NOW/DAY,modified),3.16e-11,20,10),pagerank,10)",
+      "bf":"product(recip(ms(NOW/DAY,dbsearch_update_tdt),3.16e-11,20,10),dbsearch_pagerank_d,10)",
       "spellcheck":true,
       "spellcheck.dictionary":"spellcheck",
       "spellcheck.maxResultsForSuggest":1,
@@ -50,20 +50,6 @@ angular.module('ExpertFinderApp')
       "q.op":"OR",
       "mm":"67%"
     };
-
-    function store() {
-      if($scope.input && $scope.input != "" && $scope.result.grouped.doctype.matches>0) {
-        var aparams = {
-          "q":$scope.input,
-          "nor":$scope.result.grouped.doctype.matches,
-          "time":$scope.result.responseHeader.QTime
-        };
-
-        //if($rootScope.user) aparams.ru = $rootScope.user;
-
-        $http.get(ENV.storeEndpoint,{params:aparams})
-      }
-    }
 
     var timeout;
 
@@ -106,7 +92,7 @@ angular.module('ExpertFinderApp')
 
       for(var i in $scope.selectedFilters) {
         if ($scope.selectedFilters[i].facet) {
-          if($scope.selectedFilters[i].field == 'doctype') {
+          if($scope.selectedFilters[i].field == 'dbsearch_doctype_s') {
             setGroupLimit = true;
           }
           facets.push($scope.selectedFilters[i].facet);
@@ -169,18 +155,15 @@ angular.module('ExpertFinderApp')
           $scope.loaded = true;
           $scope.filterLoaded = true;
 
-          if($scope.result.grouped.doctype.matches) {
-            timeout = $timeout(store,5000);
-          }
-          if($scope.result.grouped.doctype.matches) {
-            $scope.selected = $scope.result.grouped.doctype.groups[0].doclist.docs[0];
+          if($scope.result.grouped.dbsearch_doctype_s.matches) {
+            $scope.selected = $scope.result.grouped.dbsearch_doctype_s.groups[0].doclist.docs[0];
             setTypeahead($scope.result.autocomplete, $scope.input,$scope.selected.title ? $scope.selected.title : $scope.selected.url);
           } else {
             $scope.selected = undefined;
             setTypeahead($scope.result.autocomplete);
           }
 
-          if(spellcheck && $scope.result.grouped.doctype.matches) {
+          if(spellcheck && $scope.result.grouped.dbsearch_doctype_s.matches) {
             $scope.spellcheckResult = input;
             $scope.moreResult = undefined;
           }
@@ -192,7 +175,7 @@ angular.module('ExpertFinderApp')
               inp = inp.replace(new RegExp(key, "ig"),suggestion.suggestion[0]);
             });
 
-            if(!$scope.result.grouped.doctype.matches) {
+            if(!$scope.result.grouped.dbsearch_doctype_s.matches) {
               $scope.search(inp,undefined,true);
             }
             $scope.moreResult = inp;
@@ -224,20 +207,6 @@ angular.module('ExpertFinderApp')
     //  aparams.fq="user:\""+$rootScope.user+"\"";
     //}
 
-    function loadAnalysis(setloaded) {
-      $http.get(ENV.analysisEndpoint,{params:aparams}).then(
-        function(data) {
-
-          for(var i in data.data.response.docs) {
-            var doc = data.data.response.docs[i];
-            $scope.recentSearches.push({search:doc.query_s[0],timestamp:doc.datetime,results:doc.results_l[0]})
-          }
-
-          if(setloaded) $scope.loaded = true;
-        }
-      );
-    }
-
     $rootScope.$on('$locationChangeSuccess', function() {
       if(currentSearch !== $location.search()) {
         currentSearch = $location.search();
@@ -257,9 +226,6 @@ angular.module('ExpertFinderApp')
 
     if(sparams.q) {
       $scope.search(sparams.q,sparams.e);
-      loadAnalysis(false);
-    } else {
-      loadAnalysis(true);
     }
 
     $scope.showExamples = sparams.examples ? true : false;
@@ -274,8 +240,8 @@ angular.module('ExpertFinderApp')
       "q": "*:*",
       "facet.field": [
         //"type",
-        "doctype",
-        "language"
+        "dbsearch_doctype_s",
+        "dbsearch_language_s"
       ],
       "indent": "true",
       "f.type.facet.mincount": "10",

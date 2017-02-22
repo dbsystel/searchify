@@ -24,35 +24,35 @@ angular.module('ExpertFinderApp')
 
     var query = {
       'expert_application':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Application AND dynamic_uri_expert:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Application AND relation_uri_expert:{id}"},
           heads: [
             {name:"Application",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'expert_project':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Project AND dynamic_uri_expert:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Project AND relation_uri_expert_ss:{id}"},
           heads: [
             {name:"Project",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'expert_qualification':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Qualification AND dynamic_uri_expert:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Qualification AND relation_uri_expert_ss:{id}"},
           heads: [
             {name:"Qualification",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'expert_knowledge':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Knowledge AND dynamic_uri_expert:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Knowledge AND relation_uri_expert_ss:{id}"},
           heads: [
             {name:"Knowledge",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
           ]
         }
         ,'expert_technology':{
-          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Technology AND dynamic_uri_expert:{id}"},
+          params:{defType:"edismax",rowst:3,sort:"modified desc",fqt:"doctype:Technology AND relation_uri_expert_ss:{id}"},
           heads: [
             {name:"Technology",value:"title",link:{field:'id',type:'simple'}},
             {name:"Confluence Link",value:"url",link:{field:'id',type:'external'}}
@@ -148,8 +148,8 @@ angular.module('ExpertFinderApp')
         var id = '"'+scope.item.id+'"';
         
         //Formating narrower relations
-        if(scope.item.dynamic_uri_narrower) {
-          var narrower_uris = scope.item.dynamic_uri_narrower.map( function(value){
+        if(scope.item.relation_uri_parent_of_ss) {
+          var narrower_uris = scope.item.relation_uri_parent_of_ss.map( function(value){
            return '"' + value + '"';
           })
 
@@ -157,16 +157,16 @@ angular.module('ExpertFinderApp')
         }
 
         //Formating technology relations
-        if(scope.item.dynamic_uri_technology) {
-          var technology_uris = scope.item.dynamic_uri_technology.map( function(value){
+        if(scope.item.relation_uri_technology_ss) {
+          var technology_uris = scope.item.relation_uri_technology_ss.map( function(value){
            return '"' + value + '"';
           })
 
           var technologyIds = '('+technology_uris.join(' ')+')';
         }
         //Formating knowledge relations
-        if(scope.item.dynamic_uri_knowledge) {
-          var knowledge_uris = scope.item.dynamic_uri_knowledge.map( function(value){
+        if(scope.item.relation_uri_knowledge_ss) {
+          var knowledge_uris = scope.item.relation_uri_knowledge_ss.map( function(value){
            return '"' + value + '"';
           })
 
@@ -174,32 +174,32 @@ angular.module('ExpertFinderApp')
         }
 
         //Formating project relations
-        if(scope.item.dynamic_uri_project) {
-          var project_uris = scope.item.dynamic_uri_project.map( function(value){
+        if(scope.item.relation_uri_project_ss) {
+          var project_uris = scope.item.relation_uri_project_ss.map( function(value){
            return '"' + value + '"';
           })
 
           var projectIds = '('+project_uris.join(' ')+')';
         }
         //Formating qualification relations
-        if(scope.item.dynamic_uri_qualification) {
-          var qualification_uris = scope.item.dynamic_uri_qualification.map( function(value){
+        if(scope.item.relation_uri_qualification_ss) {
+          var qualification_uris = scope.item.relation_uri_qualification_ss.map( function(value){
            return '"' + value + '"';
           })
 
           var qualificationIds = '('+qualification_uris.join(' ')+')';
         }
         //Formating application relations
-        if(scope.item.dynamic_uri_application) {
-          var application_uris = scope.item.dynamic_uri_application.map( function(value){
+        if(scope.item.relation_uri_application_ss) {
+          var application_uris = scope.item.relation_uri_application_ss.map( function(value){
            return '"' + value + '"';
           })
 
           var applicationIds = '('+application_uris.join(' ')+')';
         }
         //Formating expert relations
-        if(scope.item.dynamic_uri_expert) {
-          var expert_uris = scope.item.dynamic_uri_expert.map( function(value){
+        if(scope.item.relation_uri_expert_ss) {
+          var expert_uris = scope.item.relation_uri_expert_ss.map( function(value){
            return '"' + value + '"';
           })
 
