@@ -123,7 +123,7 @@ public class HtmlToMetadataProcessor implements Processor {
                 for (Element element : projectElements) {
                     String link = getLink(element.select("a").first());
                     if(link != null) {
-                        Vertex linkNode = getLinkNode(link);
+                        Vertex linkNode = getLinkNode(link,selector.getKey());
                         vertex.addEdge(selector.getKey(), linkNode);
                     }
                 }
@@ -157,11 +157,14 @@ public class HtmlToMetadataProcessor implements Processor {
             );
         }
 
-        private synchronized Vertex getLinkNode(String link) {
+        private synchronized Vertex getLinkNode(String link, String type) {
             if(graph.traversal().V().has("id",link).hasNext()) {
                 return graph.traversal().V().has("id",link).next();
             }
-            else return graph.addVertex("id", link, T.label, link, TYPE, "Concept");
+            else return graph.addVertex(
+                    "id", link,
+                    T.label, link,
+                    TYPE, type);
         }
 
         /**
