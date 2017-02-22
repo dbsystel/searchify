@@ -47,19 +47,19 @@ public class HtmlToMetadataProcessor implements Processor {
     @Value("${searchify.graph.vertex.body:dbsearch_content_t}")
     private String BODY;
 
-    @Value("${searchify.graph.vertex.body:dbsearch_abstract_t}")
+    @Value("${searchify.graph.vertex.abstract:dbsearch_abstract_t}")
     private String ABSTRACT;
 
-    @Value("${searchify.graph.vertex.body:dbsearch_link_s}")
+    @Value("${searchify.graph.vertex.link:dbsearch_link_s}")
     private String LINK;
 
-    @Value("${searchify.graph.vertex.body:dbsearch_title_s}")
+    @Value("${searchify.graph.vertex.title:dbsearch_title_s}")
     private String TITLE;
 
-    @Value("${searchify.graph.vertex.body:id}")
+    @Value("${searchify.graph.vertex.id:id}")
     private String ID;
 
-    @Value("${searchify.graph.vertex.body:dbsearch_doctype_s}")
+    @Value("${searchify.graph.vertex.type:dbsearch_doctype_s}")
     private String TYPE;
 
     @Value("${searchify.processor.html.base_url:https://expertfinder.db.redlink.io/confluence}")
@@ -71,6 +71,7 @@ public class HtmlToMetadataProcessor implements Processor {
     private ExpertiseScrappingParser parser = new ExpertiseScrappingParser();
 
     private Map<String,String> selectors;
+    private Map<String,String> relations;
 
     @PostConstruct
     public void postConstruct() {
@@ -79,6 +80,13 @@ public class HtmlToMetadataProcessor implements Processor {
                 TECHNOLOGIES, "ul.expertfinder.technologies li",
                 QUALIFICATIONS, "ul.expertfinder.qualifications li",
                 APPLICATIONS, "ul.expertfinder.applications li"
+        );
+
+        relations = ImmutableMap.of(
+                KNOWLEDGE_AREAS,"knowledge",
+                TECHNOLOGIES, "technology",
+                QUALIFICATIONS, "qualification",
+                APPLICATIONS, "application"
         );
     }
 
@@ -124,7 +132,7 @@ public class HtmlToMetadataProcessor implements Processor {
                     String link = getLink(element.select("a").first());
                     if(link != null) {
                         Vertex linkNode = getLinkNode(link,selector.getKey());
-                        vertex.addEdge(selector.getKey(), linkNode);
+                        vertex.addEdge(relations.get(selector.getKey()), linkNode);
                     }
                 }
             }
@@ -144,12 +152,12 @@ public class HtmlToMetadataProcessor implements Processor {
         }
 
         private synchronized Vertex getUserNode(String username, String href, String name) {
-            if(graph.traversal().V().has("id", username).hasNext()) {
-                return graph.traversal().V().has("id",username).next();
+            if(graph.traversal().V().has("id", href).hasNext()) {
+                return graph.traversal().V().has("id",href).next();
             }
             else return graph.addVertex(
-                    T.label, username,
-                    "id", username,
+                    T.label, name,
+                    "id", href,
                     "dbsearch_link_s", href,
                     "dbsearch_title_s", name,
                     "dbsearch_abstract_t", username,
@@ -164,6 +172,8 @@ public class HtmlToMetadataProcessor implements Processor {
             else return graph.addVertex(
                     "id", link,
                     T.label, link,
+                    "dbsearch_title_s", link,
+                    "dbsearch_link_s", link,
                     TYPE, type);
         }
 
@@ -177,6 +187,7 @@ public class HtmlToMetadataProcessor implements Processor {
                 return element.attr("abs:href");
             } return null;
         }
+
     }
 
 }

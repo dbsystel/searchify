@@ -784,7 +784,7 @@
     
     <lst name="spellchecker">
       <str name="name">spellcheck</str>
-      <str name="field">spellcheck</str>
+      <str name="field">dbsearch_suggest_de</str>
       <str name="classname">solr.DirectSolrSpellChecker</str>
       <!-- the spellcheck distance measure used, the default is the internal levenshtein -->
       <str name="distanceMeasure">internal</str>

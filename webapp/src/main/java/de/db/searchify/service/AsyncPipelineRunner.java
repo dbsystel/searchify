@@ -23,12 +23,16 @@ public class AsyncPipelineRunner {
     @Autowired
     LinkBuilderProcessor linkBuilderProcessor;
 
+    @Autowired
+    SolrIndexerService solrIndexerService;
+
     @Async
     public Future<Status> runAsync(Status status) throws InterruptedException {
         htmlToMetadataProcessor.run();
         status.setMessage("html preprocessed");
         linkBuilderProcessor.run();
         status.setMessage("links build");
+        solrIndexerService.index();
         status.setMessage("Completed successfully");
         status.setState(Status.State.idle);
         return new AsyncResult<>(status);

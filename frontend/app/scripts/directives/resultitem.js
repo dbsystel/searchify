@@ -12,7 +12,7 @@ angular.module('ExpertFinderApp')
     var basePath = 'views/templates/';
 
     function getTemplateURL(item) {
-      return basePath + item.doctype.toLowerCase() + '.html';
+      return basePath + item.dbsearch_doctype_s.toLowerCase() + '.html';
     }
 
     var linker = function(scope, element, attrs) {
