@@ -2,6 +2,7 @@ package de.db.searchify.processor;
 
 import com.google.common.collect.ImmutableMap;
 import de.db.searchify.api.Processor;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tinkerpop.gremlin.structure.Graph;
 import org.apache.tinkerpop.gremlin.structure.T;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Thomas Kurz (thomas.kurz@redlink.co)
@@ -116,6 +114,8 @@ public class HtmlToMetadataProcessor implements Processor {
          */
         public void parseBody(Vertex vertex) {
 
+            List<String> handled_links = new ArrayList<>();
+
             String body = (String) vertex.property(BODY).value();
 
             final Document doc = Jsoup.parse(body,BASE_URL);
@@ -133,6 +133,7 @@ public class HtmlToMetadataProcessor implements Processor {
                     if(link != null) {
                         Vertex linkNode = getLinkNode(link,selector.getKey());
                         vertex.addEdge(relations.get(selector.getKey()), linkNode);
+                        handled_links.add(link);
                     }
                 }
             }
@@ -147,8 +148,21 @@ public class HtmlToMetadataProcessor implements Processor {
                     final String name = user.text();
                     Vertex u_vertex = getUserNode(username,href,name);
                     vertex.addEdge("expert", u_vertex);
+                    handled_links.add(href);
                 }
             }
+
+            //handle other links
+            Elements e = doc.select("a");
+            e.stream()
+                    .map(element -> element.attr("abs:href"))
+                    .filter(s -> !handled_links.contains(s))
+                    .distinct()
+                    .filter(StringUtils::isNotBlank)
+                    .forEach(s -> {
+                        Vertex v = getLinkNode(s, "Document");
+                        vertex.addEdge("link", v);
+                    });
         }
 
         private synchronized Vertex getUserNode(String username, String href, String name) {
