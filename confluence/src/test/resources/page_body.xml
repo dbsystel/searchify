@@ -1,0 +1,41 @@
+<ac:layout>
+    <ac:layout-section ac:type="single">
+        <ac:layout-cell>
+            <div class="expertfinder qualification description">
+                <ac:placeholder> describe the qualification here </ac:placeholder>
+            </div>
+        </ac:layout-cell>
+    </ac:layout-section>
+    <ac:layout-section ac:type="single">
+        <ac:layout-cell>
+            <hr />
+        </ac:layout-cell>
+    </ac:layout-section>
+    <ac:layout-section ac:type="two_equal">
+        <ac:layout-cell>
+            <h2>Narrower qualifications</h2>
+            <div class="expertfinder qualification narrower">
+                <ac:structured-macro ac:name="pagetree" ac:schema-version="1" ac:macro-id="bb6a87b4-a6c1-491f-a923-243326d99cb7">
+                    <ac:parameter ac:name="root">
+                        <ac:link>
+                            <ri:page ri:content-title="@self" />
+                        </ac:link>
+                    </ac:parameter>
+                </ac:structured-macro>
+            </div>
+        </ac:layout-cell>
+        <ac:layout-cell>
+            <h2>Experts <small> (start typing @ to mention the experts) </small></h2>
+            <ul class="expertfinder qualification experts">
+                <li>
+                    <ac:placeholder ac:type="mention"> @mention experts </ac:placeholder>
+                </li>
+            </ul>
+        </ac:layout-cell>
+    </ac:layout-section>
+    <ac:layout-section ac:type="single">
+        <ac:layout-cell>
+            <hr />
+        </ac:layout-cell>
+    </ac:layout-section>
+</ac:layout>

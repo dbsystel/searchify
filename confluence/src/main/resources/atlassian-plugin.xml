@@ -29,6 +29,30 @@
     <template-context-item key="i18nResolveContextItem" component-ref="i18nResolver"
                            context-key="i18n" global="true" name="I18nResolver Context Item"/>
 
+    <!-- 'add me as expert' action (web-item + xwork) -->
+    <web-item name="add-me-as-expert-action-web-ui"
+              key="add-me-as-expert-action-web-ui"
+              section="system.content.action/primary" weight="10">
+        <description key="expertfinder.plugin.actions.addmeasexpert.description" />
+        <!--
+        <icon width="16" height="16">
+            <link linkId="add-me-as-expert-action-web-ui-icon">/images/add.png</link>
+        </icon>
+        -->
+        <label key="expertfinder.plugin.actions.addmeasexpert.label" />
+        <link linkId="add-me-as-expert-action">/plugins/expertfinder-confluence-plugin/add-me-as-expert.action?pageId=$page.id</link>
+    </web-item>
+    <xwork name="add-me-as-expert-action-xwork" key="add-me-as-expert-action-xwork">
+        <description key="expertfinder.plugin.actions.addmeasexpert.link.description" />
+        <package name="add-me-as-expert-action-label" extends="default" namespace="/plugins/expertfinder-confluence-plugin">
+            <default-interceptor-ref name="defaultStack"/>
+            <action name="add-me-as-expert" class="io.redlink.db.expertfinder.confluence.actions.AddMeAsExpertAction">
+                <result name="success" type="redirect">${page.urlPath}</result>
+                <result name="none" type="redirect">${page.urlPath}</result>
+            </action>
+        </package>
+    </xwork>
+
     <!-- project -->
     <web-item key="expertfinder-blueprint-project-item"
               i18n-name-key="expertfinder.plugin.templates.project.title"
@@ -40,7 +64,7 @@
     <blueprint key="expertfinder-blueprint-project"
                i18n-name-key="expertfinder.plugin.meta.project.blueprint"
                content-template-key="expertfinder-project-template"
-               index-key="expertfinder-project" />
+               index-key="Projekt" />
     <content-template key="expertfinder-project-template"
                       i18n-name-key="expertfinder.plugin.meta.project.template"
                       template-title-key="expertfinder.plugin.templates.project.title">
@@ -58,7 +82,7 @@
     <blueprint key="expertfinder-blueprint-knowledge"
                i18n-name-key="expertfinder.plugin.meta.knowledge.blueprint"
                content-template-key="expertfinder-knowledge-template"
-               index-key="expertfinder-knowledge" />
+               index-key="Fachliche Domäne" />
     <content-template key="expertfinder-knowledge-template"
                       i18n-name-key="expertfinder.plugin.meta.knowledge.template"
                       template-title-key="expertfinder.plugin.templates.knowledge.title">
@@ -76,7 +100,7 @@
     <blueprint key="expertfinder-blueprint-application"
                i18n-name-key="expertfinder.plugin.meta.application.blueprint"
                content-template-key="expertfinder-application-template"
-               index-key="expertfinder-application" />
+               index-key="Applikation" />
     <content-template key="expertfinder-application-template"
                       i18n-name-key="expertfinder.plugin.meta.project.template"
                       template-title-key="expertfinder.plugin.templates.application.title">
@@ -94,7 +118,7 @@
     <blueprint key="expertfinder-blueprint-technology"
                i18n-name-key="expertfinder.plugin.meta.technology.blueprint"
                content-template-key="expertfinder-technology-template"
-               index-key="expertfinder-technology" />
+               index-key="Technologie" />
     <content-template key="expertfinder-technology-template"
                       i18n-name-key="expertfinder.plugin.meta.project.template"
                       template-title-key="expertfinder.plugin.templates.technology.title">
@@ -112,7 +136,7 @@
     <blueprint key="expertfinder-blueprint-qualification"
                i18n-name-key="expertfinder.plugin.meta.qualification.blueprint"
                content-template-key="expertfinder-qualification-template"
-               index-key="expertfinder-qualification" />
+               index-key="Qualifikation" />
     <content-template key="expertfinder-qualification-template"
                       i18n-name-key="expertfinder.plugin.meta.qualification.template"
                       template-title-key="expertfinder.plugin.templates.qualification.title">

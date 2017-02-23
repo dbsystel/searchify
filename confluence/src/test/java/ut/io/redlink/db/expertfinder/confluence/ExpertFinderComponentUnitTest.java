@@ -1,8 +1,8 @@
 package ut.io.redlink.db.expertfinder.confluence;
 
 import org.junit.Test;
-import io.redlink.db.expertfinder.confluence.api.ExpertFinderPluginComponent;
-import io.redlink.db.expertfinder.confluence.impl.ExpertFinderPluginComponentImpl;
+import io.redlink.db.expertfinder.confluence.components.ExpertFinderPluginComponent;
+import io.redlink.db.expertfinder.confluence.components.ExpertFinderPluginComponentImpl;
 
 import static org.junit.Assert.assertEquals;
 
